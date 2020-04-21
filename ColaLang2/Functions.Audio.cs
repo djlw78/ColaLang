@@ -15,23 +15,23 @@ namespace SplitAndMerge
         protected override Variable Evaluate(ParsingScript script)
         {
             List<Variable> args = script.GetFunctionArgs();
-            Utils.CheckArgs(args.Count, 2, m_name);
-
+            Utils.CheckArgs(args.Count, 1, m_name);
+            //Cola.Playsound("path", "type");
             var path = Utils.GetSafeString(args, 0);
-            var type = Utils.GetSafeString(args, 1);
+            //var type = Utils.GetSafeString(args, 1);
 
-            if (type == "wav")
+            if (path.EndsWith("wav"))
             {
                 System.Media.SoundPlayer player = new System.Media.SoundPlayer(path);
                 player.Play();
             }
-            else if (type == "mp3")
+            else if (path.EndsWith("mp3"))
             {
                 PlayMp3(path);
             }
             else
             {
-                Console.WriteLine($"Type {type} not found.");
+                Console.WriteLine($"Type {path} not found.");
             }
 
 

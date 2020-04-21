@@ -648,6 +648,12 @@ namespace SplitAndMerge
                 case "!==":
                     leftCell.Value = Convert.ToDouble(leftCell.Value != rightCell.Value);
                     break;
+                case "<<":
+                    leftCell.Value = (int)leftCell.Value << (int)rightCell.Value;
+                    break;
+                case ">>":
+                    leftCell.Value = (int)leftCell.Value >> (int)rightCell.Value;
+                    break;
                 case "&"://bitwise AND 
                     leftCell.Value = (int)leftCell.Value & (int)rightCell.Value;
                     break;

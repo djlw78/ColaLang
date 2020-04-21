@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System;
 using System.Threading.Tasks;
 using Roslyn.Scripting.CSharp;
 using Roslyn.Compilers.CSharp;
@@ -23,10 +24,11 @@ namespace SplitAndMerge
             session.ImportNamespace("System");
             session.ImportNamespace("System.Math");
             
-            Console.WriteLine(session.Execute(code));
+            //Console.WriteLine(session.Execute(code));
            // session.Execute(code);
-
-            return Variable.EmptyInstance;
+           //a = Cola.Eval();
+            return new Variable(session.Execute(code));
+            
         }
 
     }

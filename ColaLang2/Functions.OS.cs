@@ -60,7 +60,7 @@ namespace SplitAndMerge
     }
 
     //IMPORTANT print function
-    
+
     class PrintFunction : ParserFunction
     {
         internal PrintFunction(bool newLine = true)
@@ -109,13 +109,13 @@ namespace SplitAndMerge
 
     class DataFunction : ParserFunction
     {
-        internal enum DataMode { ADD, SUBSCRIBE, SEND};
+        internal enum DataMode { ADD, SUBSCRIBE, SEND };
 
-        DataMode      m_mode;
+        DataMode m_mode;
 
         static string s_method;
         static string s_tracking;
-        static bool   s_updateImmediate = false;
+        static bool s_updateImmediate = false;
 
         static StringBuilder s_data = new StringBuilder();
 
@@ -128,7 +128,7 @@ namespace SplitAndMerge
             List<Variable> args = script.GetFunctionArgs();
             string result = "";
 
-            switch(m_mode)
+            switch (m_mode)
             {
                 case DataMode.ADD:
                     Collect(args);
@@ -149,8 +149,8 @@ namespace SplitAndMerge
         {
             s_data.Clear();
 
-            s_method          = Utils.GetSafeString(args, 0);
-            s_tracking        = Utils.GetSafeString(args, 1);
+            s_method = Utils.GetSafeString(args, 0);
+            s_tracking = Utils.GetSafeString(args, 1);
             s_updateImmediate = Utils.GetSafeDouble(args, 2) > 0;
         }
 
@@ -485,13 +485,317 @@ namespace SplitAndMerge
             return Variable.EmptyInstance;
         }
     }
+    class ColaConsoleWidthFunction : ParserFunction
+    {
+        protected override Variable Evaluate(ParsingScript script)
+        {
+            List<Variable> args = script.GetFunctionArgs();
+            Utils.CheckArgs(args.Count, 1, m_name);
+
+            var width = Utils.GetSafeInt(args, 0);
+
+            //Console.WindowHeight = height;
+            Console.WindowWidth = width;
+
+
+            return Variable.EmptyInstance;
+        }
+    }
+    class ColaConsoleFGFunction : ParserFunction
+    {
+        protected override Variable Evaluate(ParsingScript script)
+        {
+            List<Variable> args = script.GetFunctionArgs();
+            Utils.CheckArgs(args.Count, 1, m_name);
+
+            var color = Utils.GetSafeString(args, 0);
+
+            switch (color)
+            {
+                case "White":
+                    Console.ForegroundColor = ConsoleColor.White;
+                    break;
+                case "Black":
+                    Console.ForegroundColor = ConsoleColor.Black;
+                    break;
+                case "DarkBlue":
+                    Console.ForegroundColor = ConsoleColor.DarkBlue;
+                    break;
+                case "DarkGreen":
+                    Console.ForegroundColor = ConsoleColor.DarkGreen;
+                    break;
+                case "DarkCyan":
+                    Console.ForegroundColor = ConsoleColor.DarkCyan;
+                    break;
+                case "DarkRed":
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                    break;
+                case "DarkMagenta":
+                    Console.ForegroundColor = ConsoleColor.DarkMagenta;
+                    break;
+                case "DarkYellow":
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    break;
+                case "Gray":
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                    break;
+                case "DarkGray":
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                    break;
+                case "Blue":
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                    break;
+                case "Green":
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    break;
+                case "Cyan":
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    break;
+                case "Red":
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    break;
+                case "Yellow":
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    break;
+                case "Magenta":
+                    Console.ForegroundColor = ConsoleColor.Magenta;
+                    break;
+                case "Reset":
+                    Console.ResetColor();
+                    break;
+                case "Colors":
+                    Console.WriteLine("White");
+                    Console.WriteLine("Black");
+                    Console.WriteLine("DarkBlue");
+                    Console.WriteLine("DarkGreen");
+                    Console.WriteLine("DarkCyan");
+                    Console.WriteLine("DarkRed");
+                    Console.WriteLine("DarkMagenta");
+                    Console.WriteLine("DarkYellow");
+                    Console.WriteLine("Grey");
+                    Console.WriteLine("DarkGrey");
+                    Console.WriteLine("Blue");
+                    Console.WriteLine("Green");
+                    Console.WriteLine("Magenta");
+                    Console.WriteLine("Yellow");
+                    Console.WriteLine("Cyan");
+                    Console.WriteLine("Red");
+                    Console.WriteLine("Reset");
+                    break;
+                default:
+                    Console.WriteLine("Console color not found!");
+                    break;
+            }
+
+            //Console.ForegroundColor = ConsoleColor.
+
+            return Variable.EmptyInstance;
+        }
+    }
+    class ColaConsoleBGFunction : ParserFunction
+    {
+        protected override Variable Evaluate(ParsingScript script)
+        {
+            List<Variable> args = script.GetFunctionArgs();
+            Utils.CheckArgs(args.Count, 1, m_name);
+
+            var color = Utils.GetSafeString(args, 0);
+
+            switch (color)
+            {
+                case "Black":
+                    Console.BackgroundColor = ConsoleColor.Black;
+                    break;
+                case "White":
+                    Console.BackgroundColor = ConsoleColor.White;
+                    break;
+                case "DarkBlue":
+                    Console.BackgroundColor = ConsoleColor.DarkBlue;
+                    break;
+                case "DarkGreen":
+                    Console.BackgroundColor = ConsoleColor.DarkGreen;
+                    break;
+                case "DarkCyan":
+                    Console.BackgroundColor = ConsoleColor.DarkCyan;
+                    break;
+                case "DarkRed":
+                    Console.BackgroundColor = ConsoleColor.DarkRed;
+                    break;
+                case "DarkMagenta":
+                    Console.BackgroundColor = ConsoleColor.DarkMagenta;
+                    break;
+                case "DarkYellow":
+                    Console.BackgroundColor = ConsoleColor.DarkYellow;
+                    break;
+                case "Gray":
+                    Console.BackgroundColor = ConsoleColor.Gray;
+                    break;
+                case "DarkGray":
+                    Console.BackgroundColor = ConsoleColor.DarkGray;
+                    break;
+                case "Blue":
+                    Console.BackgroundColor = ConsoleColor.Blue;
+                    break;
+                case "Green":
+                    Console.BackgroundColor = ConsoleColor.Green;
+                    break;
+                case "Cyan":
+                    Console.BackgroundColor = ConsoleColor.Cyan;
+                    break;
+                case "Red":
+                    Console.BackgroundColor = ConsoleColor.Red;
+                    break;
+                case "Yellow":
+                    Console.BackgroundColor = ConsoleColor.Yellow;
+                    break;
+                case "Magenta":
+                    Console.BackgroundColor = ConsoleColor.Magenta;
+                    break;
+                case "Reset":
+                    Console.ResetColor();
+                    break;
+                case "Colors":
+                    Console.WriteLine("Black");
+                    Console.WriteLine("White");
+                    Console.WriteLine("DarkBlue");
+                    Console.WriteLine("DarkGreen");
+                    Console.WriteLine("DarkCyan");
+                    Console.WriteLine("DarkRed");
+                    Console.WriteLine("DarkMagenta");
+                    Console.WriteLine("DarkYellow");
+                    Console.WriteLine("Grey");
+                    Console.WriteLine("DarkGrey");
+                    Console.WriteLine("Blue");
+                    Console.WriteLine("Green");
+                    Console.WriteLine("Magenta");
+                    Console.WriteLine("Yellow");
+                    Console.WriteLine("Cyan");
+                    Console.WriteLine("Red");
+                    Console.WriteLine("Reset");
+                    break;
+                default:
+                    Console.WriteLine("Console color not found!");
+                    break;
+            }
+
+            //Console.ForegroundColor = ConsoleColor.
+
+            return Variable.EmptyInstance;
+        }
+    }
+    class ColaConsoleHeightFunction : ParserFunction
+    {
+        protected override Variable Evaluate(ParsingScript script)
+        {
+            List<Variable> args = script.GetFunctionArgs();
+            Utils.CheckArgs(args.Count, 1, m_name);
+
+            var height = Utils.GetSafeInt(args, 0);
+
+            Console.WindowHeight = height;
+            //Console.WindowWidth = width;
+
+
+            return Variable.EmptyInstance;
+        }
+    }
+
+
+    class ColaConsoleTitleFunction : ParserFunction
+    {
+        protected override Variable Evaluate(ParsingScript script)
+        {
+            List<Variable> args = script.GetFunctionArgs();
+            Utils.CheckArgs(args.Count, 1, m_name);
+
+            var title = Utils.GetSafeString(args, 0);
+
+            Console.Title = title;
+
+            return Variable.EmptyInstance;
+        }
+    }
+
+    class ColaSetPositionFunction : ParserFunction
+    {
+        protected override Variable Evaluate(ParsingScript script)
+        {
+            List<Variable> args = script.GetFunctionArgs();
+            Utils.CheckArgs(args.Count, 2, m_name);
+
+            var x = Utils.GetSafeInt(args, 0);
+            var y = Utils.GetSafeInt(args, 1);
+
+            Console.SetCursorPosition(x, y);
+            return Variable.EmptyInstance;
+        }
+    }
+
+    class ColaGetKeyFunction : ParserFunction
+    {
+        protected override Variable Evaluate(ParsingScript script)
+        {
+            //List<Variable> args = script.GetFunctionArgs();
+            //Utils.CheckArgs(args.Count, 1, m_name);
+
+            // declare a new ConsoleKeyInfo object 
+            ConsoleKeyInfo c = new ConsoleKeyInfo();
+            c = Console.ReadKey(true);
+            //if (c.Key == ConsoleKey.A)
+            //{
+            //    Console.WriteLine("A was pressed!");
+          //  }
+          //ConsoleKey.
+
+            return new Variable(c.Key);
+        }
+    }
+
+    class ColaRandomNext : ParserFunction
+    {
+        protected override Variable Evaluate(ParsingScript script)
+        {
+            List<Variable> args = script.GetFunctionArgs();
+            Utils.CheckArgs(args.Count, 1, m_name);
+
+            var ran = Utils.GetSafeInt(args, 0);
+            Random r = new Random();
+            var rnd = r.Next(ran);
+            return new Variable(rnd);
+        }
+    }
+
+    class ColaLoopRedFunction : ParserFunction
+    {
+        protected override Variable Evaluate(ParsingScript script)
+        {
+            List<Variable> args = script.GetFunctionArgs();
+            Utils.CheckArgs(args.Count, 2, m_name);
+            //RedLoop("0", 1);
+            var text = Utils.GetSafeString(args, 0);
+            var times = Utils.GetSafeInt(args, 1);
+
+            for (int i = 0; i < times; i++)
+            {
+                Console.WriteLine(text);
+            }
+
+            return Variable.EmptyInstance;
+        }
+    }
 
     class ColaReadKeyFunction : ParserFunction
     {
         protected override Variable Evaluate(ParsingScript script)
         {
-            Console.ReadKey();
-            return Variable.EmptyInstance;
+            //List<Variable> args = script.GetFunctionArgs();
+            //Utils.CheckArgs(args.Count, 1, m_name);
+
+
+            //var input = Console.ReadKey();
+            //Console.
+            //Console.ReadKey();
+            return new Variable(Console.ReadKey().Key.ToString());
         }
     }
 
@@ -703,7 +1007,7 @@ namespace SplitAndMerge
 
             Utils.CheckArgs(args.Count, 2, m_name);
             string pattern = Utils.GetSafeString(args, 0);
-            string text    = Utils.GetSafeString(args, 1);
+            string text = Utils.GetSafeString(args, 1);
 
             Variable result = new Variable(Variable.VarType.ARRAY);
 

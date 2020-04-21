@@ -249,8 +249,17 @@ namespace SplitAndMerge
             ParserFunction.RegisterFunction(Constants.COLASNGPYR, new SoundPlayFunction());
             ParserFunction.RegisterFunction(Constants.COLACLEAR, new ClearConsole());
             ParserFunction.RegisterFunction(Constants.COLAWRITE, new WriteToConsole());
-            //ParserFunction.RegisterFunction(Constants.COLAREADKEY, new ());
+            ParserFunction.RegisterFunction(Constants.COLAREADKEY, new ColaReadKeyFunction());
+            ParserFunction.RegisterFunction(Constants.COLASCP, new ColaSetPositionFunction());
+            ParserFunction.RegisterFunction(Constants.COLACTITLE, new ColaConsoleTitleFunction());
+            ParserFunction.RegisterFunction(Constants.COLACWIDTH, new ColaConsoleWidthFunction());
+            ParserFunction.RegisterFunction(Constants.COLACHEIGHT, new ColaConsoleHeightFunction());
+            ParserFunction.RegisterFunction(Constants.COLAFGCOLOR, new ColaConsoleFGFunction());
+            ParserFunction.RegisterFunction(Constants.COLABGCOLOR, new ColaConsoleBGFunction());
+            ParserFunction.RegisterFunction(Constants.COLAGETKEY, new ColaGetKeyFunction());
             ParserFunction.RegisterFunction(Constants.LOOPTEST, new LoopFunction());
+            ParserFunction.RegisterFunction(Constants.LOOPRED, new ColaLoopRedFunction());
+            ParserFunction.RegisterFunction(Constants.Rnd, new ColaRandomNext());
             #region OpenGL
             ParserFunction.RegisterFunction(Constants.GLCREATEWINDOW, new GLCreateWindow());
             #endregion

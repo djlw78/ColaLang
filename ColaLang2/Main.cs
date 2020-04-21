@@ -11,6 +11,8 @@ namespace SplitAndMerge
     public class Program
     {
         const string EXT = "cla";
+        const string THINKFISH = "thinkfish";
+        const string CLP = "clp";
 
         enum NEXT_CMD
         {
@@ -50,7 +52,7 @@ namespace SplitAndMerge
             }
             if (args.Length > 0)
             {
-                if (args[0].EndsWith(EXT))
+                if (args[0].EndsWith(EXT) || args[0].EndsWith(THINKFISH) || args[0].EndsWith(CLP))
                 {
                     scriptFilename = args[0];
                     Console.WriteLine("Reading script from " + scriptFilename);
