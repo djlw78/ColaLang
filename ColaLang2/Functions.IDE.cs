@@ -37,6 +37,9 @@ namespace SplitAndMerge
     {
         protected override Variable Evaluate(ParsingScript script)
         {
+            if (!IDEConnectDebugger.initialized)
+                return Variable.EmptyInstance;
+
             List<Variable> args = script.GetFunctionArgs();
             Utils.CheckArgs(args.Count, 2, m_name);
 
@@ -48,6 +51,69 @@ namespace SplitAndMerge
             IDEConnectDebugger.streamWriter.Flush();
 
             return new Variable(true);
+        }
+    }
+
+    class IDEGetInput : ParserFunction
+    {
+        protected override Variable Evaluate(ParsingScript script)
+        {
+            if (!IDEConnectDebugger.initialized)
+                return Variable.EmptyInstance;
+
+            List<Variable> args = script.GetFunctionArgs();
+            Utils.CheckArgs(args.Count, 1, m_name);
+
+            var text = Utils.GetSafeString(args, 0);
+
+            IDEConnectDebugger.streamWriter.WriteLine("Input|" + text);
+            IDEConnectDebugger.streamWriter.Flush();
+
+            string theString = IDEConnectDebugger.streamReader.ReadLine();
+
+            return new Variable(theString);
+        }
+    }
+
+    class IDEDisconnect : ParserFunction
+    {
+        protected override Variable Evaluate(ParsingScript script)
+        {
+            if (!IDEConnectDebugger.initialized)
+                return Variable.EmptyInstance;
+
+            List<Variable> args = script.GetFunctionArgs();
+            Utils.CheckArgs(args.Count, 0, m_name);
+
+            IDEConnectDebugger.streamWriter.WriteLine("exit");
+            IDEConnectDebugger.streamWriter.Flush();
+            IDEConnectDebugger.networkStream.Close();
+
+            IDEConnectDebugger.initialized = false;
+
+            return new Variable(true);
+        }
+    }
+
+    class IDELogInfo : ParserFunction
+    {
+        protected override Variable Evaluate(ParsingScript script)
+        {
+            return new Variable("Info");
+        }
+    }
+    class IDELogError : ParserFunction
+    {
+        protected override Variable Evaluate(ParsingScript script)
+        {
+            return new Variable("Error");
+        }
+    }
+    class IDELogWarning : ParserFunction
+    {
+        protected override Variable Evaluate(ParsingScript script)
+        {
+            return new Variable("Warning");
         }
     }
 }

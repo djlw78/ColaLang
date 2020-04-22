@@ -264,7 +264,13 @@ namespace SplitAndMerge
 
             //IDE Functions
             ParserFunction.RegisterFunction(Constants.IDECONNECTDEBUGGER, new IDEConnectDebugger());
+            ParserFunction.RegisterFunction(Constants.IDEDISCONNECT, new IDEDisconnect());
             ParserFunction.RegisterFunction(Constants.IDELOG, new IDELog());
+            ParserFunction.RegisterFunction(Constants.IDEGETINPUT, new IDEGetInput());
+
+            ParserFunction.RegisterFunction(Constants.IDELOGINFO, new IDELogInfo());
+            ParserFunction.RegisterFunction(Constants.IDELOGERROR, new IDELogError());
+            ParserFunction.RegisterFunction(Constants.IDELOGWARNING, new IDELogWarning());
             #region OpenGL
             ParserFunction.RegisterFunction(Constants.GLCREATEWINDOW, new GLCreateWindow());
             #endregion

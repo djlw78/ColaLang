@@ -294,7 +294,13 @@ namespace SplitAndMerge
 
         #region IDEDebugClass
         public const string IDECONNECTDEBUGGER = "IDE.ConnectDebugger";
+        public const string IDEDISCONNECT = "IDE.Disconnect";
         public const string IDELOG = "IDE.Log";
+        public const string IDEGETINPUT = "IDE.GetInput";
+
+        public const string IDELOGINFO = "Log.Info";
+        public const string IDELOGERROR = "Log.Error";
+        public const string IDELOGWARNING = "Log.Warning";
         #endregion
 
         #region OPENGL
