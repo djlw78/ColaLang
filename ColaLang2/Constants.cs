@@ -240,20 +240,21 @@ namespace SplitAndMerge
         public const string MATH_TRUNC    = "Math.Trunc";
 
         #region ConsoleClass
-        public const string COLAWRITE     = "Cola.Write";
-        public const string COLAWRITELINE = "Cola.WriteLine";
-        public const string COLASCP       = "Cola.SetCursorPosition";
-        public const string COLACTITLE    = "Cola.Title";
-        public const string COLACWIDTH    = "Cola.WindowWidth";
-        public const string COLACHEIGHT   = "Cola.WindowHeight";
-        public const string COLAREADKEY   = "Cola.ReadKey";
-        public const string COLAREAD      = "Cola.Read";
-        public const string COLAREADLINE  = "Cola.ReadLine";
-        public const string COLACLEAR     = "Cola.Clear";
-        public const string COLAEVAL      = "Cola.Eval";
-        public const string COLAFGCOLOR   = "Cola.FGColor";
-        public const string COLABGCOLOR   = "Cola.BGColor";
-        public const string COLAGETKEY    = "Cola.GetKey";
+        public const string COLAWRITE         = "Cola.Write";
+        public const string COLAWRITELINE     = "Cola.WriteLine";
+        public const string COLASCP           = "Cola.SetCursorPosition";
+        public const string COLACTITLE        = "Cola.Title";
+        public const string COLACWIDTH        = "Cola.WindowWidth";
+        public const string COLACHEIGHT       = "Cola.WindowHeight";
+        public const string COLAREADKEY       = "Cola.ReadKey";
+        public const string COLAREAD          = "Cola.Read";
+        public const string COLAREADLINE      = "Cola.ReadLine";
+        public const string COLACLEAR         = "Cola.Clear";
+        public const string COLAEVAL          = "Cola.Eval";
+        public const string COLAFGCOLOR       = "Cola.FGColor";
+        public const string COLABGCOLOR       = "Cola.BGColor";
+        public const string COLAGETKEY        = "Cola.GetKey";
+        public const string COLACURSORVISIBLE = "Cola.CursorVisible";
 
         public const string COLACREDITS   = "Cola.Credits";
         public const string COLAEGGBEEP   = "Cola.EasterEgg.Beep";

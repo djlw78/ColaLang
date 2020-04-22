@@ -260,6 +260,8 @@ namespace SplitAndMerge
             ParserFunction.RegisterFunction(Constants.LOOPTEST, new LoopFunction());
             ParserFunction.RegisterFunction(Constants.LOOPRED, new ColaLoopRedFunction());
             ParserFunction.RegisterFunction(Constants.Rnd, new ColaRandomNext());
+
+            ParserFunction.RegisterFunction(Constants.COLACURSORVISIBLE, new ColaCursorVisible());
             #region OpenGL
             ParserFunction.RegisterFunction(Constants.GLCREATEWINDOW, new GLCreateWindow());
             #endregion
