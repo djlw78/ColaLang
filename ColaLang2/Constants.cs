@@ -292,6 +292,11 @@ namespace SplitAndMerge
         public const string CKEYZ = "ColaKey.Z";
         #endregion
 
+        #region IDEDebugClass
+        public const string IDECONNECTDEBUGGER = "IDE.ConnectDebugger";
+        public const string IDELOG = "IDE.Log";
+        #endregion
+
         #region OPENGL
         public const string GLCREATEWINDOW = "UI.CreateWindow";
         #endregion

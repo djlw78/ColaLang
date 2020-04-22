@@ -143,6 +143,7 @@
     <Compile Include="Functions.Cross.cs" />
     <Compile Include="Functions.Egg.cs" />
     <Compile Include="Functions.Flow.cs" />
+    <Compile Include="Functions.IDE.cs" />
     <Compile Include="Functions.Math.cs" />
     <Compile Include="Functions.OS.cs" />
     <Compile Include="Functions.SQL.cs" />
