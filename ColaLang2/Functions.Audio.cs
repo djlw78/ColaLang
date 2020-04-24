@@ -5,9 +5,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Media;
+using System.Windows.Forms;
 
 namespace SplitAndMerge
 {
+    class SetSoundVolume : ParserFunction
+    {
+        public int volume = 100;
+        private IWavePlayer waveOut;
+        private Mp3FileReader mp3FileReader;
+        protected override Variable Evaluate(ParsingScript script)
+        {
+            List<Variable> args = script.GetFunctionArgs();
+            Utils.CheckArgs(args.Count, 1, m_name);
+            var vol = Utils.GetSafeInt(args, 0);
+
+            volume = vol;
+
+            return Variable.EmptyInstance;
+        }
+    }
     class SoundPlayFunction : ParserFunction
     {
         private IWavePlayer waveOut;
@@ -22,7 +40,7 @@ namespace SplitAndMerge
 
             if (path.EndsWith("wav"))
             {
-                System.Media.SoundPlayer player = new System.Media.SoundPlayer(path);
+                SoundPlayer player = new System.Media.SoundPlayer(path);
                 player.Play();
             }
             else if (path.EndsWith("mp3"))
