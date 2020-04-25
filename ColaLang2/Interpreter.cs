@@ -271,6 +271,19 @@ namespace SplitAndMerge
             ParserFunction.RegisterFunction(Constants.IDELOGINFO, new IDELogInfo());
             ParserFunction.RegisterFunction(Constants.IDELOGERROR, new IDELogError());
             ParserFunction.RegisterFunction(Constants.IDELOGWARNING, new IDELogWarning());
+
+            #region Networking
+            ParserFunction.RegisterFunction(Constants.NETTCPCLIENT, new NetTCPClient());
+            ParserFunction.RegisterFunction(Constants.NETTCPLISTENER, new NetTCPListener());
+            ParserFunction.RegisterFunction(Constants.NETREADLINE, new NetReadLine());
+            ParserFunction.RegisterFunction(Constants.NETWRITELINE, new NetWriteLine());
+            ParserFunction.RegisterFunction(Constants.NETFLUSH, new NetFlush());
+            ParserFunction.RegisterFunction(Constants.NETDISCONNECT, new NetDisconnect());
+
+            ParserFunction.RegisterFunction(Constants.NETPING, new NetPing());
+            ParserFunction.RegisterFunction(Constants.NETREADFROMURL, new NetReadFromURL());
+            ParserFunction.RegisterFunction(Constants.NETDOWNLOADFILE, new NetDownloadFile());
+            #endregion
             #region OpenGL
             ParserFunction.RegisterFunction(Constants.GLCREATEWINDOW, new GLCreateWindow());
             #endregion

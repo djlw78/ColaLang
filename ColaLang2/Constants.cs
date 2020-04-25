@@ -303,6 +303,20 @@ namespace SplitAndMerge
         public const string IDELOGWARNING = "Log.Warning";
         #endregion
 
+        #region NetworkingClass
+        public const string NETTCPCLIENT = "Net.NewTCPClient";
+        public const string NETTCPLISTENER = "Net.NewTCPListener";
+
+        public const string NETREADLINE = "Net.ReadLine";
+        public const string NETWRITELINE = "Net.WriteLine";
+        public const string NETFLUSH = "Net.Flush";
+        public const string NETDISCONNECT = "Net.Disconnect";
+
+        public const string NETPING = "Net.Ping";
+        public const string NETREADFROMURL = "Net.ReadFromURL";
+        public const string NETDOWNLOADFILE = "Net.DownloadFile";
+        #endregion
+
         #region OPENGL
         public const string GLCREATEWINDOW = "UI.CreateWindow";
         #endregion
