@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -9,9 +10,12 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Windows.Interop;
 
 namespace SplitAndMerge
 {
+    #region printing
     // Prints passed list of argumentsand
     class PrintfFunction : ParserFunction
     {
@@ -107,6 +111,393 @@ namespace SplitAndMerge
         private bool m_newLine = true;
     }
 
+
+    #region colorful printing
+
+    enum FancyMode
+    {
+        Write,
+        WriteL,
+        Rbg,
+        FromHtml,
+        FromOle,
+        AsciiArt,
+        Gradient,
+        GradientL,
+    }
+
+    class ColoredTest : ParserFunction
+    {
+        protected override Variable Evaluate(ParsingScript script)
+        {
+            List<Variable> args = script.GetFunctionArgs();
+            //Utils.CheckArgs(args.Count, 2, m_name);
+
+            var mode = Utils.GetSafeInt(args, 0);
+
+
+            if (mode == (int)FancyMode.WriteL)
+            {
+                var message = Utils.GetSafeString(args, 1);
+                var color = Utils.GetSafeString(args, 2);
+                Colorful.Console.WriteLine(message, Color.FromName(color));
+                //ColorTranslator.
+                //PrintFancy.PrintFancyColors(mode, message, (FancyColors)color);
+            }
+            else if (mode == (int)FancyMode.Write)
+            {
+                var message = Utils.GetSafeString(args, 1);
+                var color = Utils.GetSafeString(args, 2);
+                Colorful.Console.Write(message, Color.FromName(color));
+            }
+            else if (mode == (int)FancyMode.FromHtml)
+            {
+                var message = Utils.GetSafeString(args, 1);
+                var color = Utils.GetSafeString(args, 2);
+
+                Colorful.Console.WriteLine(message, ColorTranslator.FromHtml(color));
+            }
+            else if (mode == (int)FancyMode.FromOle)
+            {
+                var message = Utils.GetSafeString(args, 1);
+                var color = Utils.GetSafeInt(args, 2);
+
+                Colorful.Console.WriteLine(message, ColorTranslator.FromOle(color));
+            }
+            else if (mode == (int)FancyMode.Rbg)
+            {
+                var message = Utils.GetSafeString(args, 1);
+                var r = Utils.GetSafeInt(args, 2);
+                var b = Utils.GetSafeInt(args, 3);
+                var g = Utils.GetSafeInt(args, 4);
+                Colorful.Console.WriteLine(message, Color.FromArgb(r, b, g));
+            }
+            else if (mode == (int)FancyMode.AsciiArt)
+            {
+                var message = Utils.GetSafeString(args, 1);
+                var wFont = Utils.GetSafeBool(args, 2);
+                
+                //PrintFancy.PrintFancyColors(mode, message, (FancyColors)color);
+                if (wFont == true)
+                {
+                    var fontPath = Utils.GetSafeString(args, 3);
+                    var color = Utils.GetSafeString(args, 4);
+                    Colorful.FigletFont font = Colorful.FigletFont.Load(fontPath);
+                    Colorful.Figlet figlet = new Colorful.Figlet(font);
+                    
+                    Colorful.Console.WriteLine(figlet.ToAscii(message), Color.FromName(color));
+                    
+                }
+                else
+                {
+                    var color = Utils.GetSafeString(args, 3);
+                    Colorful.Console.WriteAscii(message, Colorful.FigletFont.Default, Color.FromName(color));
+                }
+            }
+            else if (mode == (int)FancyMode.GradientL)
+            {
+                var message = Utils.GetSafeString(args, 1);
+                var startColor = Utils.GetSafeString(args, 2);
+                var endColor = Utils.GetSafeString(args, 3);
+                var count = Utils.GetSafeInt(args, 4);
+                Colorful.Console.WriteLineWithGradient(message, Color.FromName(startColor), Color.FromName(endColor), count);
+            }
+            else if (mode == (int)FancyMode.Gradient)
+            {
+                var message = Utils.GetSafeString(args, 1);
+                var startColor = Utils.GetSafeString(args, 2);
+                var endColor = Utils.GetSafeString(args, 3);
+                var count = Utils.GetSafeInt(args, 4);
+                Colorful.Console.WriteWithGradient(message.ToCharArray(), Color.FromName(startColor), Color.FromName(endColor), count);
+                //Colorful.Console.ReplaceAllColorsWithDefaults();
+            }
+
+           
+
+           // if(colortype == (int)FancyColors.MediumPurple)
+           // {
+           //     Colorful.Console.WriteLine(colored, System.Drawing.Color.MediumPurple);
+           // }
+            
+            // Colorful.Console.WriteLine("stuff", System.Drawing.Color.FromArgb(255, 255, 250));
+            // Colorful.Console.WriteAscii("HASSELOFF", System.Drawing.Color.FromArgb(244, 212, 255));
+
+
+            return Variable.EmptyInstance;
+        }
+    }
+
+    /*
+    class PrintFancy
+    {
+        public static void PrintFancyColors(int mode, string Message, FancyColors Colors)
+        {
+            if (mode == (int)FancyMode.FancyColors)
+            {
+                if (Colors == FancyColors.MediumPurple)
+                {
+                    Colorful.Console.WriteLine(Message, Color.MediumPurple);
+                }
+                else if (Colors == FancyColors.MediumSeaGreen)
+                {
+                    Colorful.Console.WriteLine(Message, Color.MediumSeaGreen);
+                }
+                else if (Colors == FancyColors.MediumSlateBlue)
+                {
+                    Colorful.Console.WriteLine(Message, Color.MediumSlateBlue);
+                }
+                else if (Colors == FancyColors.MediumSpringGreen)
+                {
+                    Colorful.Console.WriteLine(Message, Color.MediumSpringGreen);
+                }
+                else if (Colors == FancyColors.MediumTurquoise)
+                {
+                    Colorful.Console.WriteLine(Message, Color.MediumTurquoise);
+                }
+                else if (Colors == FancyColors.MediumVioletRed)
+                {
+                    Colorful.Console.WriteLine(Message, Color.MediumVioletRed);
+                }
+                else if (Colors == FancyColors.MidnightBlue)
+                {
+                    Colorful.Console.WriteLine(Message, Color.MidnightBlue);
+                }
+                else if (Colors == FancyColors.MediumOrchid)
+                {
+                    Colorful.Console.WriteLine(Message, Color.MediumOrchid);
+                }
+                else if (Colors == FancyColors.MintCream)
+                {
+                    Colorful.Console.WriteLine(Message, Color.MintCream);
+                }
+                else if (Colors == FancyColors.Moccasin)
+                {
+                    Colorful.Console.WriteLine(Message, Color.Moccasin);
+                }
+                else if (Colors == FancyColors.NavajoWhite)
+                {
+                    Colorful.Console.WriteLine(Message, Color.NavajoWhite);
+                }
+                else if (Colors == FancyColors.Navy)
+                {
+                    Colorful.Console.WriteLine(Message, Color.Navy);
+                }
+                else if (Colors == FancyColors.OldLace)
+                {
+                    Colorful.Console.WriteLine(Message, Color.OldLace);
+                }
+                else if (Colors == FancyColors.Olive)
+                {
+                    Colorful.Console.WriteLine(Message, Color.Olive);
+                }
+                else if (Colors == FancyColors.OliveDrab)
+                {
+                    Colorful.Console.WriteLine(Message, Color.OliveDrab);
+                }
+                else if (Colors == FancyColors.Orange)
+                {
+                    Colorful.Console.WriteLine(Message, Color.Orange);
+                }
+                else if (Colors == FancyColors.MistyRose)
+                {
+                    Colorful.Console.WriteLine(Message, Color.MistyRose);
+                }
+                else if (Colors == FancyColors.OrangeRed)
+                {
+                    Colorful.Console.WriteLine(Message, Color.OrangeRed);
+                }
+                else if (Colors == FancyColors.MediumBlue)
+                {
+                    Colorful.Console.WriteLine(Message, Color.MediumBlue);
+                }
+                else if (Colors == FancyColors.Maroon)
+                {
+                    Colorful.Console.WriteLine(Message, Color.Maroon);
+                }
+                else if (Colors == FancyColors.LightBlue)
+                {
+                    Colorful.Console.WriteLine(Message, Color.LightBlue);
+                }
+                else if (Colors == FancyColors.LightCoral)
+                {
+                    Colorful.Console.WriteLine(Message, Color.LightCoral);
+                }
+                else if (Colors == FancyColors.LightGoldenrodYellow)
+                {
+                    Colorful.Console.WriteLine(Message, Color.LightGoldenrodYellow);
+                }
+                else if (Colors == FancyColors.LightGreen)
+                {
+                    Colorful.Console.WriteLine(Message, Color.LightGreen);
+                }
+                else if (Colors == FancyColors.LightGray)
+                {
+                    Colorful.Console.WriteLine(Message, Color.LightGray);
+                }
+                else if (Colors == FancyColors.LightPink)
+                {
+                    Colorful.Console.WriteLine(Message, Color.LightPink);
+                }
+                else if (Colors == FancyColors.LightSalmon)
+                {
+                    Colorful.Console.WriteLine(Message, Color.LightSalmon);
+                }
+                else if (Colors == FancyColors.MediumAquamarine)
+                {
+                    Colorful.Console.WriteLine(Message, Color.MediumAquamarine);
+                }
+                else if (Colors == FancyColors.LightSeaGreen)
+                {
+                    Colorful.Console.WriteLine(Message, Color.LightSeaGreen);
+                }
+                else if (Colors == FancyColors.LightSlateGray)
+                {
+                    Colorful.Console.WriteLine(Message, Color.LightSlateGray);
+                }
+                else if (Colors == FancyColors.LightSteelBlue)
+                {
+                    Colorful.Console.WriteLine(Message, Color.LightSteelBlue);
+                }
+                else if (Colors == FancyColors.LightYellow)
+                {
+                    Colorful.Console.WriteLine(Message, Color.LightYellow);
+                }
+                else if (Colors == FancyColors.Lime)
+                {
+                    Colorful.Console.WriteLine(Message, Color.Lime);
+                }
+                else if (Colors == FancyColors.LimeGreen)
+                {
+                    Colorful.Console.WriteLine(Message, Color.LimeGreen);
+                }
+                else if (Colors == FancyColors.Linen)
+                {
+                    Colorful.Console.WriteLine(Message, Color.Linen);
+                }
+                else if (Colors == FancyColors.Magenta)
+                {
+                    Colorful.Console.WriteLine(Message, Color.Magenta);
+                }
+
+                /*
+            LightSkyBlue,
+            LemonChiffon,
+            Orchid,
+            PaleGreen,
+            SlateBlue,
+            SlateGray,
+            Snow,
+            SpringGreen,
+            SteelBlue,
+            Tan,
+            Teal,
+            SkyBlue,
+            Thistle,
+            Turquoise,
+            Violet,
+            Wheat,
+            White,
+            WhiteSmoke,
+            Yellow,
+            YellowGreen,
+            Tomato,
+            PaleGoldenrod,
+            Silver,
+            SeaShell,
+            PaleTurquoise,
+            PaleViolateRed,
+            PapayaWhip,
+            PeachPuff,
+            Peru,
+            Pink,
+            Plum,
+            Sienna,
+            PowderBlue,
+            Red,
+            RosyBrown,
+            RoyalBlue,
+            SaddleBrown,
+            Salmon,
+            SandyBrown,
+            SeaGreen,
+            Purpe,
+            LawnGreen,
+            LightCyan,
+            Lavender,
+            DarkKhanki,
+            DarkGreen,
+            DarkGray,
+            DarkGoldenrod,
+            DarkCyan,
+            DarkBlue,
+            Cyan,
+            Crimson,
+            Cornsilk,
+            LavenderBlush,
+            Coral,
+            Chocolate,
+            Chartreuse,
+            DarkMagenta,
+            CadetBlue,
+            Brown,
+            BlueViolet,
+            Blue,
+            BlanchedAlmond,
+            Black,
+            Bisque,
+            Beige,
+            Azure,
+            Aquamarine,
+            Aqua,
+            AntiqueWhite,
+            AliceBlue,
+            Transparent,
+            BurlyWood,
+            DarkOliveGreen,
+            CornFlowerBlue,
+            DarkOrchid,
+            Khaki,
+            Ivory,
+            DarkOrange,
+            Indigo,
+            IndianRed,
+            HotPink,
+            Honeydew,
+            GreenYellow,
+            Green,
+            Gray,
+            Goldenrod,
+            GhostWHite,
+            Gainsboro,
+            Fuchsia,
+            Gold,
+            FloralWhite,
+            DarkRed,
+            DarkSalmon,
+            DarkSeaGreen,
+            ForestGreen,
+            DarkSlateGray,
+            DarkTurquoise,
+            DarkSlateBlue,
+            DeepPink,
+            DeepSkyBlue,
+            DimGray,
+            DodgerBlue,
+            Firebrick,
+            DarkViolet
+                
+            }
+
+            if (mode == (int)FancyMode.AsciiArt)
+            {
+
+            }
+        }
+
+    }
+    */
+    #endregion
+    #endregion
     class DataFunction : ParserFunction
     {
         internal enum DataMode { ADD, SUBSCRIBE, SEND };
@@ -758,8 +1149,8 @@ namespace SplitAndMerge
             //if (c.Key == ConsoleKey.A)
             //{
             //    Console.WriteLine("A was pressed!");
-          //  }
-          //ConsoleKey.
+            //  }
+            //ConsoleKey.
 
             return new Variable(c.Key);
         }

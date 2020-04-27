@@ -14,7 +14,6 @@ namespace SplitAndMerge
     {
         public static List<NetClient> ncs = new List<NetClient>(); // its NetClients not No Copyright Sounds :P
         public static List<NetListener> nls = new List<NetListener>();
-        public static List<NetSocket> nsts = new List<NetSocket>();
         public static void Init()
         {
             //ParserFunction.RegisterFunction("connectTest", new ConnectTest());
@@ -58,23 +57,6 @@ namespace SplitAndMerge
         }
     }
 
-    class NetTCPSocket : ParserFunction
-    {
-        protected override Variable Evaluate(ParsingScript script)
-        {
-            List<Variable> args = script.GetFunctionArgs();
-            Utils.CheckArgs(args.Count, 1, m_name);
-
-            var nls = Utils.GetSafeString(args, 0);
-
-            NetListener nl = NetListener.Parse(nls);
-            NetSocket nts = new NetSocket(nl, COLA_NET.nsts.Count);
-            COLA_NET.nsts.Add(nts);
-
-            return new Variable(nts);
-        }
-    }
-
     class NetWriteLine : ParserFunction
     {
         protected override Variable Evaluate(ParsingScript script)
@@ -90,9 +72,9 @@ namespace SplitAndMerge
                 NetClient no = NetClient.Parse(nostring);
                 no.streamWriter.WriteLine(data);
             }
-            else if (nostring.StartsWith("NST"))
+            else if (nostring.StartsWith("NL"))
             {
-                NetSocket no = NetSocket.Parse(nostring);
+                NetListener no = NetListener.Parse(nostring);
                 no.streamWriter.WriteLine(data);
             }
 
@@ -116,10 +98,10 @@ namespace SplitAndMerge
                 NetClient nc = NetClient.Parse(nostring);
                 callback = nc.streamReader.ReadLine();
             }
-            else if (nostring.StartsWith("NST"))
+            else if (nostring.StartsWith("NL"))
             {
-                NetSocket no = NetSocket.Parse(nostring);
-                callback = no.streamReader.ReadLine();
+                NetListener nl = NetListener.Parse(nostring);
+                callback = nl.streamReader.ReadLine();
             }
 
             return new Variable(callback);
@@ -140,10 +122,10 @@ namespace SplitAndMerge
                 NetClient nc = NetClient.Parse(nostring);
                 nc.streamWriter.Flush();
             }
-            else if (nostring.StartsWith("NST"))
+            else if (nostring.StartsWith("NL"))
             {
-                NetSocket no = NetSocket.Parse(nostring);
-                no.streamWriter.Flush();
+                NetListener nl = NetListener.Parse(nostring);
+                nl.streamWriter.Flush();
             }
                 return Variable.EmptyInstance;
         }
@@ -166,13 +148,13 @@ namespace SplitAndMerge
                 nc.streamReader.Close();
                 nc.streamWriter.Close();
             }
-            else if (nostring.StartsWith("NST"))
+            else if (nostring.StartsWith("NL"))
             {
-                NetSocket no = NetSocket.Parse(nostring);
-                no.sfc.Close();
-                no.networkStream.Close();
-                no.streamReader.Close();
-                no.streamWriter.Close();
+                NetListener nc = NetListener.Parse(nostring);
+                nc.sfc.Close();
+                nc.networkStream.Close();
+                nc.streamReader.Close();
+                nc.streamWriter.Close();
             }
 
             return Variable.EmptyInstance;
@@ -304,6 +286,10 @@ namespace SplitAndMerge
     public class NetListener
     {
         public TcpListener tcp;
+        public Socket sfc;
+        public NetworkStream networkStream;
+        public StreamWriter streamWriter;
+        public StreamReader streamReader;
 
         int id;
         int port;
@@ -314,6 +300,11 @@ namespace SplitAndMerge
             port = _port;
             tcp = new TcpListener(_port);
             tcp.Start();
+
+            sfc = tcp.AcceptSocket();
+            networkStream = new NetworkStream(sfc);
+            streamReader = new StreamReader(networkStream);
+            streamWriter = new StreamWriter(networkStream);
         }
         public static NetListener Parse(string s)
         {
@@ -325,36 +316,6 @@ namespace SplitAndMerge
         public override string ToString()
         {
             return "NL " + port + " [" + id + "]";
-        }
-    }
-
-    public class NetSocket
-    {
-        public Socket sfc;
-        public NetworkStream networkStream;
-        public StreamWriter streamWriter;
-        public StreamReader streamReader;
-
-        int id;
-
-        public NetSocket(NetListener nl, int _id)
-        {
-            id = _id;
-            sfc = nl.tcp.AcceptSocket();
-            networkStream = new NetworkStream(sfc);
-            streamReader = new StreamReader(networkStream);
-            streamWriter = new StreamWriter(networkStream);
-        }
-        public static NetSocket Parse(string s)
-        {
-            string sid0 = s.Split('[')[1];
-            string sid1 = sid0.Substring(0, sid0.Length - 1);
-            int index = int.Parse(sid1);
-            return COLA_NET.nsts[index];
-        }
-        public override string ToString()
-        {
-            return "NST " + sfc.Connected + " [" + id + "]";
         }
     }
 }

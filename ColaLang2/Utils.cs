@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -482,6 +483,40 @@ namespace SplitAndMerge
                 return defaultValue;
             }
             return args[index].AsString();
+        }
+
+        public static bool GetSafeBool(List<Variable> args, int index, bool defaultValue = false)
+        {
+            if (args.Count <= index)
+            {
+                return defaultValue;
+            }
+            return args[index].AsBool();
+        }
+        public static long GetSafeLong(List<Variable> args, int index, long defaultValue = 0)
+        {
+            if (args.Count <= index)
+            {
+                return defaultValue;
+            }
+            return args[index].AsLong();
+        }
+        public static float GetSafeFloat(List<Variable> args, int index, float defaultValue = 0.0f)
+        {
+            if (args.Count <= index)
+            {
+                return defaultValue;
+            }
+            return args[index].AsFloat();
+        }
+
+        public static DateTime GetSafeDate(List<Variable> args, int index, DateTime defaultValue)
+        {
+            if (args.Count <= index)
+            {
+                return defaultValue;
+            }
+            return args[index].AsDateTime();
         }
         public static Variable GetSafeVariable(List<Variable> args, int index, Variable defaultValue = null)
         {

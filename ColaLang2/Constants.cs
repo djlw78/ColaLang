@@ -162,6 +162,7 @@ namespace SplitAndMerge
         public const string TO_STRING = "string";
         public const string VAR = "var";
         public const string VARIABLE_TYPE = "VariableType";
+        public const string FANCYCOLORS = "FancyColors";
         public const string WAIT = "Task.Wait";
         public const string WEB_REQUEST = "Web.Request";
         public const string JSON = "GetVariableFromJson";
@@ -238,6 +239,7 @@ namespace SplitAndMerge
         public const string MATH_TAN      = "Math.Tan";
         public const string MATH_TANH     = "Math.Tanh";
         public const string MATH_TRUNC    = "Math.Trunc";
+        
 
         #region ConsoleClass
         public const string COLAWRITE         = "Cola.Write";
@@ -306,7 +308,6 @@ namespace SplitAndMerge
         #region NetworkingClass
         public const string NETTCPCLIENT = "Net.NewTCPClient";
         public const string NETTCPLISTENER = "Net.NewTCPListener";
-        public const string NETTCPSOCKET = "Net.NewTCPSocket";
 
         public const string NETREADLINE = "Net.ReadLine";
         public const string NETWRITELINE = "Net.WriteLine";
@@ -318,9 +319,8 @@ namespace SplitAndMerge
         public const string NETDOWNLOADFILE = "Net.DownloadFile";
         #endregion
 
-        #region OPENGL
-        public const string GLCREATEWINDOW = "UI.CreateWindow";
-        #endregion
+        public const string COLOREDTEST = "FancyPrint";
+        public const string FANCYMODE = "FancyMode";
 
         public const string OBJECT_DEFPROP = "Object.defineProperty";
 

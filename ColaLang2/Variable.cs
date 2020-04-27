@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -1500,6 +1501,7 @@ namespace SplitAndMerge
         string m_string;
         object m_object;
         DateTime m_datetime;
+        Color m_color;
         CustomFunction m_customFunctionGet;
         CustomFunction m_customFunctionSet;
         List<Variable> m_tuple;

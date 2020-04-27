@@ -261,8 +261,6 @@ namespace SplitAndMerge
             ParserFunction.RegisterFunction(Constants.LOOPRED, new ColaLoopRedFunction());
             ParserFunction.RegisterFunction(Constants.Rnd, new ColaRandomNext());
             ParserFunction.RegisterFunction(Constants.COLACURSORVISIBLE, new ColaCursorVisible());
-            ParserFunction.RegisterFunction(Constants.COLACREDITS, new ColaCredits());
-
 
             //IDE Functions
             ParserFunction.RegisterFunction(Constants.IDECONNECTDEBUGGER, new IDEConnectDebugger());
@@ -274,10 +272,11 @@ namespace SplitAndMerge
             ParserFunction.RegisterFunction(Constants.IDELOGERROR, new IDELogError());
             ParserFunction.RegisterFunction(Constants.IDELOGWARNING, new IDELogWarning());
 
+            ParserFunction.RegisterFunction(Constants.COLOREDTEST, new ColoredTest());
+
             #region Networking
             ParserFunction.RegisterFunction(Constants.NETTCPCLIENT, new NetTCPClient());
             ParserFunction.RegisterFunction(Constants.NETTCPLISTENER, new NetTCPListener());
-            ParserFunction.RegisterFunction(Constants.NETTCPSOCKET, new NetTCPSocket());
             ParserFunction.RegisterFunction(Constants.NETREADLINE, new NetReadLine());
             ParserFunction.RegisterFunction(Constants.NETWRITELINE, new NetWriteLine());
             ParserFunction.RegisterFunction(Constants.NETFLUSH, new NetFlush());
@@ -287,15 +286,15 @@ namespace SplitAndMerge
             ParserFunction.RegisterFunction(Constants.NETREADFROMURL, new NetReadFromURL());
             ParserFunction.RegisterFunction(Constants.NETDOWNLOADFILE, new NetDownloadFile());
             #endregion
-            #region OpenGL
-            ParserFunction.RegisterFunction(Constants.GLCREATEWINDOW, new GLCreateWindow());
-            #endregion
-        }
 
+           // ParserFunction.RegisterEnum(Constants.FANCYCOLORS, "SplitAndMerge.FancyColors");
+        }
 
         public void RegisterEnums()
         {
             ParserFunction.RegisterEnum(Constants.VARIABLE_TYPE, "SplitAndMerge.Variable.VarType");
+            ParserFunction.RegisterEnum(Constants.FANCYCOLORS, "SplitAndMerge.FancyColors");
+            ParserFunction.RegisterEnum(Constants.FANCYMODE, "SplitAndMerge.FancyMode");
         }
 
         public void RegisterActions()
