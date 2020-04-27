@@ -261,6 +261,8 @@ namespace SplitAndMerge
             ParserFunction.RegisterFunction(Constants.LOOPRED, new ColaLoopRedFunction());
             ParserFunction.RegisterFunction(Constants.Rnd, new ColaRandomNext());
             ParserFunction.RegisterFunction(Constants.COLACURSORVISIBLE, new ColaCursorVisible());
+            ParserFunction.RegisterFunction(Constants.COLACREDITS, new ColaCredits());
+
 
             //IDE Functions
             ParserFunction.RegisterFunction(Constants.IDECONNECTDEBUGGER, new IDEConnectDebugger());
@@ -275,6 +277,7 @@ namespace SplitAndMerge
             #region Networking
             ParserFunction.RegisterFunction(Constants.NETTCPCLIENT, new NetTCPClient());
             ParserFunction.RegisterFunction(Constants.NETTCPLISTENER, new NetTCPListener());
+            ParserFunction.RegisterFunction(Constants.NETTCPSOCKET, new NetTCPSocket());
             ParserFunction.RegisterFunction(Constants.NETREADLINE, new NetReadLine());
             ParserFunction.RegisterFunction(Constants.NETWRITELINE, new NetWriteLine());
             ParserFunction.RegisterFunction(Constants.NETFLUSH, new NetFlush());
@@ -288,6 +291,7 @@ namespace SplitAndMerge
             ParserFunction.RegisterFunction(Constants.GLCREATEWINDOW, new GLCreateWindow());
             #endregion
         }
+
 
         public void RegisterEnums()
         {

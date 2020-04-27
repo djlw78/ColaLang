@@ -306,6 +306,7 @@ namespace SplitAndMerge
         #region NetworkingClass
         public const string NETTCPCLIENT = "Net.NewTCPClient";
         public const string NETTCPLISTENER = "Net.NewTCPListener";
+        public const string NETTCPSOCKET = "Net.NewTCPSocket";
 
         public const string NETREADLINE = "Net.ReadLine";
         public const string NETWRITELINE = "Net.WriteLine";
