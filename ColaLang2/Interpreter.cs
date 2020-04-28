@@ -277,6 +277,7 @@ namespace SplitAndMerge
             #region Networking
             ParserFunction.RegisterFunction(Constants.NETTCPCLIENT, new NetTCPClient());
             ParserFunction.RegisterFunction(Constants.NETTCPLISTENER, new NetTCPListener());
+            ParserFunction.RegisterFunction(Constants.NETTCPSOCKET, new NetTCPSocket());
             ParserFunction.RegisterFunction(Constants.NETREADLINE, new NetReadLine());
             ParserFunction.RegisterFunction(Constants.NETWRITELINE, new NetWriteLine());
             ParserFunction.RegisterFunction(Constants.NETFLUSH, new NetFlush());
