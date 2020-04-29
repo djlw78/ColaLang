@@ -118,7 +118,7 @@ namespace SplitAndMerge
     {
         Write,
         WriteL,
-        Rbg,
+        Rgb,
         FromHtml,
         FromOle,
         AsciiArt,
@@ -164,13 +164,13 @@ namespace SplitAndMerge
 
                 Colorful.Console.WriteLine(message, ColorTranslator.FromOle(color));
             }
-            else if (mode == (int)FancyMode.Rbg)
+            else if (mode == (int)FancyMode.Rgb)
             {
                 var message = Utils.GetSafeString(args, 1);
                 var r = Utils.GetSafeInt(args, 2);
-                var b = Utils.GetSafeInt(args, 3);
-                var g = Utils.GetSafeInt(args, 4);
-                Colorful.Console.WriteLine(message, Color.FromArgb(r, b, g));
+                var g = Utils.GetSafeInt(args, 3);
+                var b = Utils.GetSafeInt(args, 4);
+                Colorful.Console.WriteLine(message, Color.FromArgb(r, g, b));
             }
             else if (mode == (int)FancyMode.AsciiArt)
             {

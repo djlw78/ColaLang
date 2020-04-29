@@ -261,6 +261,7 @@ namespace SplitAndMerge
             ParserFunction.RegisterFunction(Constants.LOOPRED, new ColaLoopRedFunction());
             ParserFunction.RegisterFunction(Constants.Rnd, new ColaRandomNext());
             ParserFunction.RegisterFunction(Constants.COLACURSORVISIBLE, new ColaCursorVisible());
+            ParserFunction.RegisterFunction(Constants.COLACREDITS, new ColaCredits());
 
             //IDE Functions
             ParserFunction.RegisterFunction(Constants.IDECONNECTDEBUGGER, new IDEConnectDebugger());

@@ -13,7 +13,7 @@ namespace SplitAndMerge
         {
             Console.WriteLine("Cola Credits");
             Console.WriteLine("ColaLang developer is ProfessorDJ");
-            Console.WriteLine("ColaIDE/Installer developer is RedCube");
+            Console.WriteLine("ColaIDE/ColaLang developer is RedCube");
             return Variable.EmptyInstance;
         }
     }
