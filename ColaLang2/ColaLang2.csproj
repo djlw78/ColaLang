@@ -176,6 +176,7 @@
   <ItemGroup>
     <None Include="App.config" />
     <Compile Include="Functions.Net.cs" />
+    <Compile Include="Functions.File.cs" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

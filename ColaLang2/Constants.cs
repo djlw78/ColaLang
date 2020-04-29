@@ -320,6 +320,24 @@ namespace SplitAndMerge
         public const string NETDOWNLOADFILE = "Net.DownloadFile";
         #endregion
 
+        #region File/Directory
+        public const string FILECREATE = "File.Create";
+        public const string FILEWRITE = "File.WriteToEnd";
+        public const string FILEREADTOEND = "File.ReadToEnd";
+        public const string FILEDELETE = "File.Delete";
+        public const string FILECOPY = "File.Copy";
+        public const string FILEEXISTS = "File.Exists";
+        public const string FILEREADALLBYTES = "File.ReadAllBytes";
+        public const string FILEWRITEALLBYTES = "File.WriteAllBytes";
+
+        public const string DIRCREATE = "Directory.Create";
+        public const string DIRDELETE = "Directory.Delete";
+        public const string DIREXISTS = "Directory.Exists";
+        public const string DIRGETDIRS = "Directory.GetDirectories";
+        public const string DIRGETFILES = "Directory.GetFiles";
+        public const string DIRGETPARENT = "Directory.GetParent";
+        #endregion
+
         public const string COLOREDTEST = "FancyPrint";
         public const string FANCYMODE = "FancyMode";
 

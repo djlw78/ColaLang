@@ -1098,7 +1098,7 @@ namespace SplitAndMerge
             List<Variable> args = script.GetFunctionArgs();
             Utils.CheckArgs(args.Count, 1, m_name);
 
-            var visible = bool.Parse(Utils.GetSafeString(args, 0));
+            var visible = Utils.GetSafeBool(args, 0);
 
             Console.CursorVisible = visible;
 

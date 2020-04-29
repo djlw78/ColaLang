@@ -289,7 +289,25 @@ namespace SplitAndMerge
             ParserFunction.RegisterFunction(Constants.NETDOWNLOADFILE, new NetDownloadFile());
             #endregion
 
-           // ParserFunction.RegisterEnum(Constants.FANCYCOLORS, "SplitAndMerge.FancyColors");
+            #region File/Directory
+            ParserFunction.RegisterFunction(Constants.FILECREATE, new FileCreate());
+            ParserFunction.RegisterFunction(Constants.FILEWRITE, new FileWrite());
+            ParserFunction.RegisterFunction(Constants.FILEREADTOEND, new FileReadToEnd());
+            ParserFunction.RegisterFunction(Constants.FILEDELETE, new FileDelete());
+            ParserFunction.RegisterFunction(Constants.FILECOPY, new FileCopy());
+            ParserFunction.RegisterFunction(Constants.FILEEXISTS, new FileExists());
+            ParserFunction.RegisterFunction(Constants.FILEWRITEALLBYTES, new FileWriteAllBytes());
+            ParserFunction.RegisterFunction(Constants.FILEREADALLBYTES, new FileReadAllBytes());
+
+            ParserFunction.RegisterFunction(Constants.DIRCREATE, new DirCreate());
+            ParserFunction.RegisterFunction(Constants.DIRDELETE, new DirDelete());
+            ParserFunction.RegisterFunction(Constants.DIREXISTS, new DirExists());
+            ParserFunction.RegisterFunction(Constants.DIRGETDIRS, new DirGetDirs());
+            ParserFunction.RegisterFunction(Constants.DIRGETFILES, new DirGetFiles());
+            ParserFunction.RegisterFunction(Constants.DIRGETPARENT, new DirGetParent());
+            #endregion
+
+            // ParserFunction.RegisterEnum(Constants.FANCYCOLORS, "SplitAndMerge.FancyColors");
         }
 
         public void RegisterEnums()
