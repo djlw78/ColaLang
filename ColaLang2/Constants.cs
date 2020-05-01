@@ -336,6 +336,9 @@ namespace SplitAndMerge
         public const string DIRGETDIRS = "Directory.GetDirectories";
         public const string DIRGETFILES = "Directory.GetFiles";
         public const string DIRGETPARENT = "Directory.GetParent";
+
+        public const string ZIPCREATEFROMDIR = "Zip.CreateFromDir";
+        public const string ZIPEXTRACTTODIR = "Zip.ExtractToDir";
         #endregion
 
         public const string COLOREDTEST = "FancyPrint";

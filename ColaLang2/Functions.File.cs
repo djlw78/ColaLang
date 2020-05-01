@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.IO.Compression;
 
 namespace SplitAndMerge
 {
@@ -243,6 +244,36 @@ namespace SplitAndMerge
             var path = Utils.GetSafeString(args, 0);
 
             return new Variable(Directory.GetParent(path).FullName);
+        }
+    }
+    class ZipCreateFromDir : ParserFunction
+    {
+        protected override Variable Evaluate(ParsingScript script)
+        {
+            List<Variable> args = script.GetFunctionArgs();
+            Utils.CheckArgs(args.Count, 2, m_name);
+
+            var dirpath = Utils.GetSafeString(args, 0);
+            var outfile = Utils.GetSafeString(args, 1);
+
+            ZipFile.CreateFromDirectory(dirpath, outfile);
+
+            return Variable.EmptyInstance;
+        }
+    }
+    class ZipExtractToDir : ParserFunction
+    {
+        protected override Variable Evaluate(ParsingScript script)
+        {
+            List<Variable> args = script.GetFunctionArgs();
+            Utils.CheckArgs(args.Count, 2, m_name);
+
+            var zipfile = Utils.GetSafeString(args, 0);
+            var outpath = Utils.GetSafeString(args, 1);
+
+            ZipFile.ExtractToDirectory(zipfile, outpath);
+
+            return Variable.EmptyInstance;
         }
     }
 }

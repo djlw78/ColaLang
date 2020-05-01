@@ -305,6 +305,9 @@ namespace SplitAndMerge
             ParserFunction.RegisterFunction(Constants.DIRGETDIRS, new DirGetDirs());
             ParserFunction.RegisterFunction(Constants.DIRGETFILES, new DirGetFiles());
             ParserFunction.RegisterFunction(Constants.DIRGETPARENT, new DirGetParent());
+
+            ParserFunction.RegisterFunction(Constants.ZIPCREATEFROMDIR, new ZipCreateFromDir());
+            ParserFunction.RegisterFunction(Constants.ZIPEXTRACTTODIR, new ZipExtractToDir());
             #endregion
 
             // ParserFunction.RegisterEnum(Constants.FANCYCOLORS, "SplitAndMerge.FancyColors");
