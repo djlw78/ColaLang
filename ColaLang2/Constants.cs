@@ -80,6 +80,14 @@ namespace SplitAndMerge
         public const string TYPE_OF = "typeOf";
         public const string WHILE = "while";
 
+        //New age cola
+        public const string P_TYPE = "#p_type";
+        public const string PUTS = "_puts";
+        public const string GETS = "_gets";
+
+
+
+
         public const string TRUE = "true";
         public const string FALSE = "false";
 

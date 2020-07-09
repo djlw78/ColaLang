@@ -1476,16 +1476,67 @@ namespace SplitAndMerge
         {
             List<Variable> args = script.GetFunctionArgs();
             Utils.CheckArgs(args.Count, 1, m_name, true);
-            string filename = args[0].AsString();
-            return Execute(filename, script);
+            string LibName = args[0].AsString();
+
+            if(HasExtensionn(LibName))
+            {
+                Execute(LibName, script);
+            }
+            else
+            {
+                ImportLib(LibName, script);
+            }
+
+            return Variable.EmptyInstance;
+        }
+
+        private bool HasExtensionn(string ext)
+        {
+            //TODO more file extensions
+            if (ext.Contains(".cla"))
+                return true;
+
+            return false;
         }
 
         protected override async Task<Variable> EvaluateAsync(ParsingScript script)
         {
             List<Variable> args = await script.GetFunctionArgsAsync();
             Utils.CheckArgs(args.Count, 1, m_name, true);
+
             string filename = args[0].AsString();
             return await ExecuteAsync(filename, script);
+        }
+
+        public enum CorLibs
+        {
+            OS,
+        }
+
+        public static Variable ImportLib(string LibDir, ParsingScript parentScript = null)
+        {
+            LibDir = LibDir.ToUpper();
+            if (parentScript == null)
+            {
+                parentScript = new ParsingScript("");
+            }
+
+            switch (LibDir)
+            {
+
+                case "OS":
+                    Console.WriteLine("It worked.");
+                    break;
+                case "OS.NET":
+                    Console.WriteLine("This also worked");
+                    break;
+                default:
+                    break;
+            }
+
+            
+
+            return Variable.EmptyInstance;
         }
 
         public static Variable Execute(string filename, ParsingScript parentScript = null)
