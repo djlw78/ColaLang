@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections;
+﻿using SplitAndMerge;
+using System;
 using System.Collections.Generic;
-using System.IO;
+using System.Linq;
 using System.Text;
-using System.Net;
-using System.Net.Sockets;
+using System.Threading.Tasks;
 
-namespace SplitAndMerge
+namespace ColaLang_Compiler
 {
     public class Program
     {
@@ -270,7 +269,7 @@ namespace SplitAndMerge
                 {
                     result = System.Threading.Tasks.Task.Run(() =>
                   Interpreter.Instance.ProcessFileAsync(filename, true)).Result;
-                  //Interpreter.Instance.ProcessFile(filename, true)).Result;
+                    //Interpreter.Instance.ProcessFile(filename, true)).Result;
                 }
                 else
                 {

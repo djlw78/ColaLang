@@ -131,6 +131,10 @@ namespace SplitAndMerge
             ParserFunction.RegisterFunction(Constants.TRUE, new BoolFunction(true));
             ParserFunction.RegisterFunction(Constants.FALSE, new BoolFunction(false));
 
+            //Cola new shit
+          //  ParserFunction.RegisterFunction(Constants.PUTS, new _Puts());
+
+
             //UI
             ParserFunction.RegisterFunction(Constants.MSGBOX, new MsgBox()); 
 
@@ -275,6 +279,7 @@ namespace SplitAndMerge
 
             ParserFunction.RegisterFunction(Constants.COLOREDTEST, new ColoredTest());
 
+            ParserFunction.RegisterFunction(Constants.DIE, new DIE());
             #region Networking
             ParserFunction.RegisterFunction(Constants.NETTCPCLIENT, new NetTCPClient());
             ParserFunction.RegisterFunction(Constants.NETTCPLISTENER, new NetTCPListener());

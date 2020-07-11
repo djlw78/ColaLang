@@ -6,7 +6,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{492B59D3-855B-4141-A0A3-D9FAFEDCF5D2}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <RootNamespace>ColaLang2</RootNamespace>
     <AssemblyName>ColaLang2</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
@@ -35,6 +35,9 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Colorful.Console, Version=1.2.10.0, Culture=neutral, processorArchitecture=MSIL">
@@ -148,6 +151,7 @@
     <Compile Include="DebuggerServer.cs" />
     <Compile Include="Function.UI.cs" />
     <Compile Include="Functions.Audio.cs" />
+    <Compile Include="Functions.Cola.cs" />
     <Compile Include="Functions.Cross.cs" />
     <Compile Include="Functions.Egg.cs" />
     <Compile Include="Functions.Flow.cs" />
@@ -160,7 +164,6 @@
     <Compile Include="Interpreter.cs" />
     <Compile Include="Interpreter.Standalone.cs" />
     <Compile Include="License.cs" />
-    <Compile Include="Main.cs" />
     <Compile Include="Parser.cs" />
     <Compile Include="ParserFunction.cs" />
     <Compile Include="ParsingScript.cs" />

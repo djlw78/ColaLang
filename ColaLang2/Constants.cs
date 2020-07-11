@@ -24,7 +24,7 @@ namespace SplitAndMerge
         public const char CONTINUE_LINE = '\\';
         public const char EMPTY = '\0';
         public const char TERNARY_OPERATOR = '?';
-
+        //(bool) ? "true" : "False"
         public const string FOR_EACH = ":";
         public const string FOR_IN = "in";
         public const string FOR_OF = "of";
@@ -81,10 +81,10 @@ namespace SplitAndMerge
         public const string WHILE = "while";
 
         //New age cola
-        public const string P_TYPE = "#p_type";
-        public const string PUTS = "_puts";
-        public const string GETS = "_gets";
-
+         public const string DMODULE = "#define_module";
+      //  public const string PUTS = "_puts";
+      //  public const string GETS = "_gets";
+        
 
 
 
@@ -247,7 +247,8 @@ namespace SplitAndMerge
         public const string MATH_TAN      = "Math.Tan";
         public const string MATH_TANH     = "Math.Tanh";
         public const string MATH_TRUNC    = "Math.Trunc";
-        
+
+        public const string DIE = "die";
 
         #region ConsoleClass
         public const string COLAWRITE         = "Cola.Write";

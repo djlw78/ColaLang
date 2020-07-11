@@ -1492,6 +1492,7 @@ namespace SplitAndMerge
 
         private bool HasExtensionn(string ext)
         {
+            //using("name.cla");
             //TODO more file extensions
             if (ext.Contains(".cla"))
                 return true;
@@ -1520,12 +1521,12 @@ namespace SplitAndMerge
             {
                 parentScript = new ParsingScript("");
             }
-
+            //using("OS");
             switch (LibDir)
             {
 
                 case "OS":
-                    Console.WriteLine("It worked.");
+                    Execute("Temp/OS.cla", parentScript);
                     break;
                 case "OS.NET":
                     Console.WriteLine("This also worked");
