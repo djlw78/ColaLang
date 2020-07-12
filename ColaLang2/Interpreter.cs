@@ -4,6 +4,7 @@ using System.Collections.Specialized;
 using System.Configuration;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using static SplitAndMerge.ParserFunction;
 
@@ -83,6 +84,9 @@ namespace SplitAndMerge
 
         public void Init()
         {
+            //Thread graphics = new Thread(new ThreadStart(COLA_GRAPHICS.HandleWindow));
+            //graphics.Start();
+
             if (m_bHasBeenInitialized)
                 return;
             m_bHasBeenInitialized = true; // making sure the init gets call only once
@@ -314,6 +318,12 @@ namespace SplitAndMerge
             ParserFunction.RegisterFunction(Constants.ZIPCREATEFROMDIR, new ZipCreateFromDir());
             ParserFunction.RegisterFunction(Constants.ZIPEXTRACTTODIR, new ZipExtractToDir());
             #endregion
+
+            ParserFunction.RegisterFunction(Constants.GRAPHICS_OBJECT, new GraphicsCreateObject());
+            ParserFunction.RegisterFunction(Constants.GRAPHICS_DRAWTEXT, new GraphicsDrawText());
+            ParserFunction.RegisterFunction(Constants.GRAPHICS_DRAWRECT, new GraphicsDrawRect());
+            ParserFunction.RegisterFunction(Constants.GRAPHICS_FILLRECT, new GraphicsFillRect());
+            ParserFunction.RegisterFunction(Constants.GRAPHICS_DRAWLINE, new GraphicsDrawLine());
 
             // ParserFunction.RegisterEnum(Constants.FANCYCOLORS, "SplitAndMerge.FancyColors");
         }

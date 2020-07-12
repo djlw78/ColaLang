@@ -28,9 +28,9 @@ namespace SplitAndMerge
             var title = Utils.GetSafeString(args, 0);
             var msg = Utils.GetSafeString(args, 1);
 
-            MessageBox.Show(msg, title, MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+            DialogResult dr = MessageBox.Show(msg, title, MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
 
-            return Variable.EmptyInstance;
+            return new Variable(dr.ToString());
         }
     }
 }

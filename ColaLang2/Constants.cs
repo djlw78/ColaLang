@@ -350,6 +350,16 @@ namespace SplitAndMerge
         public const string ZIPEXTRACTTODIR = "Zip.ExtractToDir";
         #endregion
 
+        #region Graphics
+
+        public const string GRAPHICS_OBJECT = "Graphics.CreateWindow";
+        public const string GRAPHICS_DRAWTEXT = "Graphics.DrawText";
+        public const string GRAPHICS_DRAWRECT = "Graphics.DrawRect";
+        public const string GRAPHICS_FILLRECT = "Graphics.FillRect";
+        public const string GRAPHICS_DRAWLINE = "Graphics.DrawLine";
+
+        #endregion
+
         public const string COLOREDTEST = "FancyPrint";
         public const string FANCYMODE = "FancyMode";
 
