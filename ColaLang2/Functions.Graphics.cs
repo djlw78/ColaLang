@@ -15,6 +15,10 @@ namespace SplitAndMerge
     {
         public static List<ColaForm> ColaForms = new List<ColaForm>();
         public static Font activeFont = new Font("Arial", 12);
+        public static Color brcolor = Color.Black;
+        public static Color lncolor = Color.Black;
+        public static float brwidth = 1;
+
         public static void HandleWindow()
         {
             ColaForm cf = ColaForms.Last();
@@ -58,18 +62,19 @@ namespace SplitAndMerge
             var x = Utils.GetSafeFloat(args, 2);
             var y = Utils.GetSafeFloat(args, 3);
 
+            Brush b = new SolidBrush(COLA_GRAPHICS.brcolor);
+
             PrintOperation print = new PrintOperation();
             print.values.Add("text", text);
             print.values.Add("x", x);
             print.values.Add("y", y);
             print.values.Add("font", new Font(COLA_GRAPHICS.activeFont, COLA_GRAPHICS.activeFont.Style));
-            print.values.Add("brush", Brushes.DarkRed);
+            print.values.Add("brush", b);
 
             string[] winParse = window.Split(' ');
             int winID = int.Parse(winParse[1]);
 
             COLA_GRAPHICS.ColaForms[winID].operations.Add(print);
-            COLA_GRAPHICS.ColaForms[winID].RefreshNeeded = true;
 
             return Variable.EmptyInstance;
         }
@@ -88,18 +93,20 @@ namespace SplitAndMerge
             var w = Utils.GetSafeFloat(args, 3);
             var h = Utils.GetSafeFloat(args, 4);
 
+            Pen p = new Pen(COLA_GRAPHICS.lncolor);
+            p.Width = COLA_GRAPHICS.brwidth;
+
             DRectOperation rect = new DRectOperation();
             rect.values.Add("x", x);
             rect.values.Add("y", y);
             rect.values.Add("width", w);
             rect.values.Add("height", h);
-            rect.values.Add("pen", Pens.Black);
+            rect.values.Add("pen", p);
 
             string[] winParse = window.Split(' ');
             int winID = int.Parse(winParse[1]);
 
             COLA_GRAPHICS.ColaForms[winID].operations.Add(rect);
-            COLA_GRAPHICS.ColaForms[winID].RefreshNeeded = true;
 
             return Variable.EmptyInstance;
         }
@@ -117,18 +124,19 @@ namespace SplitAndMerge
             var w = Utils.GetSafeFloat(args, 3);
             var h = Utils.GetSafeFloat(args, 4);
 
+            Brush b = new SolidBrush(COLA_GRAPHICS.brcolor);
+
             FRectOperation rect = new FRectOperation();
             rect.values.Add("x", x);
             rect.values.Add("y", y);
             rect.values.Add("width", w);
             rect.values.Add("height", h);
-            rect.values.Add("brush", Brushes.Red);
+            rect.values.Add("brush", b);
 
             string[] winParse = window.Split(' ');
             int winID = int.Parse(winParse[1]);
 
             COLA_GRAPHICS.ColaForms[winID].operations.Add(rect);
-            COLA_GRAPHICS.ColaForms[winID].RefreshNeeded = true;
 
             return Variable.EmptyInstance;
         }
@@ -147,18 +155,105 @@ namespace SplitAndMerge
             var x1 = Utils.GetSafeFloat(args, 3);
             var y1 = Utils.GetSafeFloat(args, 4);
 
+            Pen p = new Pen(COLA_GRAPHICS.lncolor);
+            p.Width = COLA_GRAPHICS.brwidth;
+
             DLine line = new DLine();
             line.values.Add("x", x);
             line.values.Add("y", y);
             line.values.Add("x1", x1);
             line.values.Add("y1", y1);
-            //rect.values.Add("brush", Brushes.Red);
+            line.values.Add("pen", p);
 
             string[] winParse = window.Split(' ');
             int winID = int.Parse(winParse[1]);
 
             COLA_GRAPHICS.ColaForms[winID].operations.Add(line);
+
+            return Variable.EmptyInstance;
+        }
+    }
+
+    class GraphicsRefresh : ParserFunction
+    {
+        protected override Variable Evaluate(ParsingScript script)
+        {
+            List<Variable> args = script.GetFunctionArgs();
+            Utils.CheckArgs(args.Count, 1, m_name);
+
+            var window = Utils.GetSafeString(args, 0);
+
+            string[] winParse = window.Split(' ');
+            int winID = int.Parse(winParse[1]);
+
             COLA_GRAPHICS.ColaForms[winID].RefreshNeeded = true;
+
+            return Variable.EmptyInstance;
+        }
+    }
+
+    class GraphicsClear : ParserFunction
+    {
+        protected override Variable Evaluate(ParsingScript script)
+        {
+            List<Variable> args = script.GetFunctionArgs();
+            Utils.CheckArgs(args.Count, 1, m_name);
+
+            var window = Utils.GetSafeString(args, 0);
+
+            string[] winParse = window.Split(' ');
+            int winID = int.Parse(winParse[1]);
+
+            COLA_GRAPHICS.ColaForms[winID].operations.Clear();
+
+            return Variable.EmptyInstance;
+        }
+    }
+
+    class GraphicsSetLineColor : ParserFunction
+    {
+        protected override Variable Evaluate(ParsingScript script)
+        {
+            List<Variable> args = script.GetFunctionArgs();
+            Utils.CheckArgs(args.Count, 3, m_name);
+
+            var r = Utils.GetSafeInt(args, 0);
+            var g = Utils.GetSafeInt(args, 1);
+            var b = Utils.GetSafeInt(args, 2);
+
+            COLA_GRAPHICS.lncolor = Color.FromArgb(255,r,g,b);
+
+            return Variable.EmptyInstance;
+        }
+    }
+
+    class GraphicsSetLineWidth : ParserFunction
+    {
+        protected override Variable Evaluate(ParsingScript script)
+        {
+            List<Variable> args = script.GetFunctionArgs();
+            Utils.CheckArgs(args.Count, 1, m_name);
+
+            var w = Utils.GetSafeFloat(args, 0);
+
+            COLA_GRAPHICS.brwidth = w;
+
+            return Variable.EmptyInstance;
+        }
+    }
+
+    class GraphicsSetFillColor : ParserFunction
+    {
+        protected override Variable Evaluate(ParsingScript script)
+        {
+            List<Variable> args = script.GetFunctionArgs();
+            Utils.CheckArgs(args.Count, 3, m_name);
+
+            var r = Utils.GetSafeInt(args, 0);
+            var g = Utils.GetSafeInt(args, 1);
+            var b = Utils.GetSafeInt(args, 2);
+
+            COLA_GRAPHICS.brcolor = Color.FromArgb(255, r, g, b);
 
             return Variable.EmptyInstance;
         }
@@ -207,9 +302,7 @@ namespace SplitAndMerge
     {
         public override void Run(Graphics gfx)
         {
-            Pen a = new Pen(Color.Red);
-            a.Width = 10;
-            gfx.DrawLine(a, (float)values["x"], (float)values["y"], (float)values["x1"], (float)values["y1"]);
+            gfx.DrawLine((Pen)values["pen"], (float)values["x"], (float)values["y"], (float)values["x1"], (float)values["y1"]);
             base.Run(gfx);
         }
     }
