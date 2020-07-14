@@ -357,11 +357,14 @@ namespace SplitAndMerge
         public const string GRAPHICS_DRAWRECT = "Graphics.DrawRect";
         public const string GRAPHICS_FILLRECT = "Graphics.FillRect";
         public const string GRAPHICS_DRAWLINE = "Graphics.DrawLine";
-        public const string GRAPHICS_REFRESH = "Graphics.RefreshWindow";
+        public const string GRAPHICS_REFRESH = "Graphics.Refresh";
         public const string GRAPHICS_CLEAR = "Graphics.ClearOperations";
         public const string GRAPHICS_SETLINECOLOR = "Graphics.SetLineColor";
         public const string GRAPHICS_SETFILLCOLOR = "Graphics.SetFillColor";
         public const string GRAPHICS_SETWIDTH = "Graphics.SetLineWidth";
+        public const string GRAPHICS_LOADIMAGE = "Graphics.LoadImage";
+        public const string GRAPHICS_DRAWIMAGE = "Graphics.DrawImage";
+        public const string GRAPHICS_GETCLICK = "Graphics.GetMouseEvent";
 
         #endregion
 

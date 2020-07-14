@@ -329,6 +329,9 @@ namespace SplitAndMerge
             ParserFunction.RegisterFunction(Constants.GRAPHICS_SETLINECOLOR, new GraphicsSetLineColor());
             ParserFunction.RegisterFunction(Constants.GRAPHICS_SETFILLCOLOR, new GraphicsSetFillColor());
             ParserFunction.RegisterFunction(Constants.GRAPHICS_SETWIDTH, new GraphicsSetLineWidth());
+            ParserFunction.RegisterFunction(Constants.GRAPHICS_LOADIMAGE, new GraphicsLoadImage());
+            ParserFunction.RegisterFunction(Constants.GRAPHICS_DRAWIMAGE, new GraphicsDrawImage());
+            ParserFunction.RegisterFunction(Constants.GRAPHICS_GETCLICK, new GraphicsGetMouseEvent());
 
             // ParserFunction.RegisterEnum(Constants.FANCYCOLORS, "SplitAndMerge.FancyColors");
         }

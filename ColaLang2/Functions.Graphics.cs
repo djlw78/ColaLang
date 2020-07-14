@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
 using OpenTK.Graphics.OpenGL;
+using System.Runtime.InteropServices;
 
 namespace SplitAndMerge
 {
@@ -15,6 +16,7 @@ namespace SplitAndMerge
     {
         public static List<ColaForm> ColaForms = new List<ColaForm>();
         public static Font activeFont = new Font("Arial", 12);
+        public static Dictionary<string, Image> images = new Dictionary<string, Image>();
         public static Color brcolor = Color.Black;
         public static Color lncolor = Color.Black;
         public static float brwidth = 1;
@@ -174,6 +176,36 @@ namespace SplitAndMerge
         }
     }
 
+    class GraphicsDrawImage : ParserFunction
+    {
+        protected override Variable Evaluate(ParsingScript script)
+        {
+            List<Variable> args = script.GetFunctionArgs();
+            Utils.CheckArgs(args.Count, 6, m_name);
+
+            var window = Utils.GetSafeString(args, 0);
+            var img = Utils.GetSafeString(args, 1);
+            var x = Utils.GetSafeFloat(args, 2);
+            var y = Utils.GetSafeFloat(args, 3);
+            var w = Utils.GetSafeFloat(args, 4);
+            var h = Utils.GetSafeFloat(args, 5);
+
+            DrawImageOperation image = new DrawImageOperation();
+            image.values.Add("x", x);
+            image.values.Add("y", y);
+            image.values.Add("w", w);
+            image.values.Add("h", h);
+            image.values.Add("image", img);
+
+            string[] winParse = window.Split(' ');
+            int winID = int.Parse(winParse[1]);
+
+            COLA_GRAPHICS.ColaForms[winID].operations.Add(image);
+
+            return Variable.EmptyInstance;
+        }
+    }
+
     class GraphicsRefresh : ParserFunction
     {
         protected override Variable Evaluate(ParsingScript script)
@@ -258,6 +290,50 @@ namespace SplitAndMerge
             return Variable.EmptyInstance;
         }
     }
+    class GraphicsLoadImage : ParserFunction
+    {
+        protected override Variable Evaluate(ParsingScript script)
+        {
+            List<Variable> args = script.GetFunctionArgs();
+            Utils.CheckArgs(args.Count, 2, m_name);
+
+            var path = Utils.GetSafeString(args, 0);
+            var name = Utils.GetSafeString(args, 1);
+
+            Image i = Image.FromFile(path);
+            COLA_GRAPHICS.images.Add(name, i);
+
+            return Variable.EmptyInstance;
+        }
+    }
+
+    class GraphicsGetMouseEvent : ParserFunction
+    {
+        protected override Variable Evaluate(ParsingScript script)
+        {
+            List<Variable> args = script.GetFunctionArgs();
+            Utils.CheckArgs(args.Count, 1, m_name);
+
+            var win = Utils.GetSafeString(args, 0);
+
+            string[] winParse = win.Split(' ');
+            int winID = int.Parse(winParse[1]);
+
+            List<object> output = new List<object>();
+            output.Add(COLA_GRAPHICS.ColaForms[winID].Button);
+            output.Add(COLA_GRAPHICS.ColaForms[winID].LastClickX);
+            output.Add(COLA_GRAPHICS.ColaForms[winID].LastClickY);
+
+            if (output[0] != "")
+            {
+                COLA_GRAPHICS.ColaForms[winID].Button = "";
+                COLA_GRAPHICS.ColaForms[winID].LastClickX = 0;
+                COLA_GRAPHICS.ColaForms[winID].LastClickY = 0;
+            }
+
+            return new Variable(output);
+        }
+    }
 
     public class FormOperation
     {
@@ -306,7 +382,14 @@ namespace SplitAndMerge
             base.Run(gfx);
         }
     }
-
+    public class DrawImageOperation : FormOperation
+    {
+        public override void Run(Graphics gfx)
+        {
+            gfx.DrawImage(COLA_GRAPHICS.images[(string)values["image"]], (float)values["x"], (float)values["y"], (float)values["w"], (float)values["h"]);
+            base.Run(gfx);
+        }
+    }
     #endregion
 
     public class ColaForm : Form
@@ -316,11 +399,13 @@ namespace SplitAndMerge
         public bool RefreshNeeded = false;
         public List<FormOperation> operations = new List<FormOperation>();
         public System.Windows.Forms.Timer timer;
+        public float LastClickX = 0;
+        public float LastClickY = 0;
+        public string Button = "";
 
         public ColaForm()
         {
-            //InitializeComponent();
-            font = new Font("Arial", 24, FontStyle.Italic);
+            this.MouseClick += mouseClick;
         }
 
         protected override void OnLoad(EventArgs e)
@@ -340,6 +425,20 @@ namespace SplitAndMerge
                 RefreshNeeded = false;
                 Refresh();
             }
+        }
+
+        private void mouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+                Button = "LEFT";
+            else if (e.Button == MouseButtons.Right)
+                Button = "RIGHT";
+            else if (e.Button == MouseButtons.Middle)
+                Button = "MIDDLE";
+
+            LastClickX = e.X;
+            LastClickY = e.Y;
+
         }
 
         protected override void OnPaint(PaintEventArgs e)
