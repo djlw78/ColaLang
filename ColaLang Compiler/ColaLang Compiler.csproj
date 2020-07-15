@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{5A273380-A640-4B74-A7BC-29A6F6033AC8}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>ColaLang_Compiler</RootNamespace>
-    <AssemblyName>ColaLang Compiler</AssemblyName>
+    <RootNamespace>ColaLang.Compiler</RootNamespace>
+    <AssemblyName>ColaLangCompiler</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -50,9 +50,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ColaLang2\ColaLang2.csproj">
+    <ProjectReference Include="..\ColaLang2\ColaLang.csproj">
       <Project>{492b59d3-855b-4141-a0a3-d9fafedcf5d2}</Project>
-      <Name>ColaLang2</Name>
+      <Name>ColaLang</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

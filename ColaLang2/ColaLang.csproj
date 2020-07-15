@@ -7,8 +7,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{492B59D3-855B-4141-A0A3-D9FAFEDCF5D2}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>ColaLang2</RootNamespace>
-    <AssemblyName>ColaLang2</AssemblyName>
+    <RootNamespace>ColaLang</RootNamespace>
+    <AssemblyName>ColaLang</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -167,6 +167,7 @@
     <Compile Include="Parser.cs" />
     <Compile Include="ParserFunction.cs" />
     <Compile Include="ParsingScript.cs" />
+    <Compile Include="PluginFramework\IPlugin.cs" />
     <Compile Include="Precompiler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Statics.cs" />
