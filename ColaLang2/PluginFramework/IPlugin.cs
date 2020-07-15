@@ -4,9 +4,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ColaLang2.PluginFramework
+namespace ColaLang.PluginFramework
 {
     public interface IPlugin
     {
+        string Name();
+
+        Version Version();
+
+        string Description();
+
+        Guid PluginID();
+
+        string[] PluginDependancies();
+
+        void OnLoad();
+
+        void Execute();
+
     }
 }
