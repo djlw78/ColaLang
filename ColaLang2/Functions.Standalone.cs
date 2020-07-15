@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SplitAndMerge
+namespace ColaLang
 {
 #if UNITY_EDITOR == false && UNITY_STANDALONE == false
     class WriteToConsole : ParserFunction

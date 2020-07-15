@@ -7,7 +7,7 @@ using System.Windows.Forms;
 using Tao.FreeGlut;
 using OpenGL;
 using OpenGL.Platform;
-namespace SplitAndMerge
+namespace ColaLang
 {
     class COLA_UI
     {

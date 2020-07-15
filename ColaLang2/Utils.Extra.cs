@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SplitAndMerge
+namespace ColaLang
 {
     public partial class Utils
     {

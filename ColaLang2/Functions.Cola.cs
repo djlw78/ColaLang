@@ -1,4 +1,4 @@
-﻿using SplitAndMerge;
+﻿using ColaLang;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace SplitAndMerge
+namespace ColaLang
 {
     class DIE : ParserFunction
     {

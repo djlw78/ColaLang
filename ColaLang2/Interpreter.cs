@@ -5,9 +5,9 @@ using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static SplitAndMerge.ParserFunction;
+using static ColaLang.ParserFunction;
 
-namespace SplitAndMerge
+namespace ColaLang
 {
     public class OutputAvailableEventArgs : EventArgs
     {

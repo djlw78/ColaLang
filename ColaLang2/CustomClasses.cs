@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace SplitAndMerge
+namespace ColaLang
 {
     public class TestScriptObject : ScriptObject
     {

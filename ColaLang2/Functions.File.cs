@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.IO.Compression;
 
-namespace SplitAndMerge
+namespace ColaLang
 {
     class FileCreate : ParserFunction
     {

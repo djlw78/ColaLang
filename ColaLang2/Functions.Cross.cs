@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Roslyn.Scripting.CSharp;
 using Roslyn.Compilers.CSharp;
 
-namespace SplitAndMerge
+namespace ColaLang
 {
     class CompileCSharp : ParserFunction
     {

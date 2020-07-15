@@ -4,7 +4,7 @@ using System.Linq;
 using static System.Math;
 using System.Threading.Tasks;
 
-namespace SplitAndMerge
+namespace ColaLang
 {
     interface INumericFunction { }
     interface IArrayFunction { }

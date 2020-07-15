@@ -8,7 +8,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SplitAndMerge
+namespace ColaLang
 {
     // Returns process info
     class PsInfoFunction : ParserFunction, IStringFunction

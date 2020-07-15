@@ -8,7 +8,7 @@ using System.Net.Sockets;
 using System.IO;
 using System.Net.NetworkInformation;
 
-namespace SplitAndMerge
+namespace ColaLang
 {
     class COLA_NET
     {

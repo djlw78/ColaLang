@@ -1,4 +1,4 @@
-﻿using SplitAndMerge;
+﻿using ColaLang;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ColaLang_Compiler
+namespace ColaLang.Compiler
 {
     public class Program
     {

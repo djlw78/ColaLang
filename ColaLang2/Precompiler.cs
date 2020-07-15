@@ -11,7 +11,7 @@ using System.Linq.Expressions;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SplitAndMerge
+namespace ColaLang
 {
     public class Precompiler
     {

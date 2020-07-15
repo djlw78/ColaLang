@@ -6,7 +6,7 @@ using System.Text;
 using System.CodeDom.Compiler;
 using Microsoft.CSharp;
 
-namespace SplitAndMerge
+namespace ColaLang
 {
     public class Statics
     {

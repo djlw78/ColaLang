@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SplitAndMerge
+namespace ColaLang
 {
     public class WordHint
     {

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System.Media;
 using System.Windows.Forms;
 
-namespace SplitAndMerge
+namespace ColaLang
 {
     class SetSoundVolume : ParserFunction
     {
