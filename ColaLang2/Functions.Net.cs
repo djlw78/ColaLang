@@ -27,7 +27,7 @@ namespace SplitAndMerge
 
     class NetTCPClient : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             List<Variable> args = script.GetFunctionArgs();
             Utils.CheckArgs(args.Count, 2, m_name);
@@ -44,7 +44,7 @@ namespace SplitAndMerge
 
     class NetTCPListener : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             List<Variable> args = script.GetFunctionArgs();
             Utils.CheckArgs(args.Count, 1, m_name);
@@ -60,7 +60,7 @@ namespace SplitAndMerge
 
     class NetTCPSocket : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             List<Variable> args = script.GetFunctionArgs();
             Utils.CheckArgs(args.Count, 1, m_name);
@@ -77,7 +77,7 @@ namespace SplitAndMerge
 
     class NetWriteLine : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             List<Variable> args = script.GetFunctionArgs();
             Utils.CheckArgs(args.Count, 2, m_name);
@@ -102,7 +102,7 @@ namespace SplitAndMerge
 
     class NetReadLine : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             List<Variable> args = script.GetFunctionArgs();
             Utils.CheckArgs(args.Count, 1, m_name);
@@ -128,7 +128,7 @@ namespace SplitAndMerge
 
     class NetFlush : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             List<Variable> args = script.GetFunctionArgs();
             Utils.CheckArgs(args.Count, 1, m_name);
@@ -151,7 +151,7 @@ namespace SplitAndMerge
 
     class NetDisconnect : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             List<Variable> args = script.GetFunctionArgs();
             Utils.CheckArgs(args.Count, 1, m_name);
@@ -185,7 +185,7 @@ namespace SplitAndMerge
 
     class NetPing : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             List<Variable> args = script.GetFunctionArgs();
             Utils.CheckArgs(args.Count, 2, m_name);
@@ -215,7 +215,7 @@ namespace SplitAndMerge
 
     class NetReadFromURL : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             List<Variable> args = script.GetFunctionArgs();
             Utils.CheckArgs(args.Count, 1, m_name);
@@ -232,7 +232,7 @@ namespace SplitAndMerge
 
     class NetDownloadFile : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             List<Variable> args = script.GetFunctionArgs();
             Utils.CheckArgs(args.Count, 2, m_name);
@@ -251,7 +251,7 @@ namespace SplitAndMerge
 
     /*class ConnectTest : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             List<Variable> args = script.GetFunctionArgs();
             Utils.CheckArgs(args.Count, 2, m_name);

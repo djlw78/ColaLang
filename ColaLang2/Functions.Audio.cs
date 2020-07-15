@@ -15,7 +15,7 @@ namespace SplitAndMerge
         public int volume = 100;
         private IWavePlayer waveOut;
         private Mp3FileReader mp3FileReader;
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             List<Variable> args = script.GetFunctionArgs();
             Utils.CheckArgs(args.Count, 1, m_name);
@@ -30,7 +30,7 @@ namespace SplitAndMerge
     {
         private IWavePlayer waveOut;
         private Mp3FileReader mp3FileReader;
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             List<Variable> args = script.GetFunctionArgs();
             Utils.CheckArgs(args.Count, 1, m_name);

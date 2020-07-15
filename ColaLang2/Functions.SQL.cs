@@ -24,7 +24,7 @@ namespace SplitAndMerge
 
     class SQLConnectionStringFunction : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             List<Variable> args = script.GetFunctionArgs();
             Utils.CheckArgs(args.Count, 1, m_name);
@@ -38,7 +38,7 @@ namespace SplitAndMerge
     class SQLQueryFunction : ParserFunction
     {
         static Dictionary<string, Dictionary<string, SqlDbType>> s_columns = new Dictionary<string, Dictionary<string, SqlDbType>>();
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             List<Variable> args = script.GetFunctionArgs();
             Utils.CheckArgs(args.Count, 1, m_name);
@@ -187,7 +187,7 @@ namespace SplitAndMerge
 
     class SQLInsertFunction : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             List<Variable> args = script.GetFunctionArgs();
             Utils.CheckArgs(args.Count, 3, m_name);
@@ -262,7 +262,7 @@ namespace SplitAndMerge
 
     class SQLNonQueryFunction : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             List<Variable> args = script.GetFunctionArgs();
             Utils.CheckArgs(args.Count, 1, m_name);
@@ -282,7 +282,7 @@ namespace SplitAndMerge
 
     class SQLColumnsFunction : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             List<Variable> args = script.GetFunctionArgs();
             Utils.CheckArgs(args.Count, 1, m_name);

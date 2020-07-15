@@ -13,7 +13,7 @@ namespace SplitAndMerge
     // Returns process info
     class PsInfoFunction : ParserFunction, IStringFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             List<Variable> args = script.GetFunctionArgs();
             Utils.CheckArgs(args.Count, 1, m_name, true);
@@ -61,7 +61,7 @@ namespace SplitAndMerge
     // Kills a process with specified process id
     class KillFunction : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             List<Variable> args = script.GetFunctionArgs();
             Utils.CheckArgs(args.Count, 1, m_name, true);
@@ -89,7 +89,7 @@ namespace SplitAndMerge
     // Starts running a new process, returning its ID
     class RunFunction : ParserFunction, INumericFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             string processName = Utils.GetItem(script).String;
             Utils.CheckNotEmpty(processName, "processName");
@@ -114,7 +114,7 @@ namespace SplitAndMerge
     // Starts running an "echo" server
     class ServerSocket : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             Variable portRes = Utils.GetItem(script);
             Utils.CheckPosInt(portRes, script);
@@ -173,7 +173,7 @@ namespace SplitAndMerge
     // Starts running an "echo" client
     class ClientSocket : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             // Data buffer for incoming data.
             byte[] bytes = new byte[1024];
@@ -229,7 +229,7 @@ namespace SplitAndMerge
     // Returns current directory name
     class PwdFunction : ParserFunction, IStringFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             string path = Directory.GetCurrentDirectory();
             return new Variable(path);
@@ -239,7 +239,7 @@ namespace SplitAndMerge
     // Equivalent to cd.. on Windows: one directory up
     class Cd__Function : ParserFunction, IStringFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             string newDir = null;
 
@@ -266,7 +266,7 @@ namespace SplitAndMerge
     // Changes directory to the passed one
     class CdFunction : ParserFunction, IStringFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             if (script.Substr().StartsWith(" .."))
             {
@@ -306,7 +306,7 @@ namespace SplitAndMerge
     // Reads a file and returns all lines of that file as a "tuple" (list)
     class ReadCOLAFileFunction : ParserFunction, IArrayFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             string filename = Utils.GetItem(script).AsString();
             string[] lines = Utils.GetFileLines(filename);
@@ -321,7 +321,7 @@ namespace SplitAndMerge
     // View the contents of a text file
     class MoreFunction : ParserFunction, IArrayFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             string filename = Utils.GetItem(script).AsString();
             int size = Constants.DEFAULT_FILE_LINES;
@@ -344,7 +344,7 @@ namespace SplitAndMerge
     // View the last Constants.DEFAULT_FILE_LINES lines of a file
     class TailFunction : ParserFunction, IArrayFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             string filename = Utils.GetItem(script).AsString();
             int size = Constants.DEFAULT_FILE_LINES;
@@ -367,7 +367,7 @@ namespace SplitAndMerge
     // Append a line to a file
     class AppendLineFunction : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             string filename = Utils.GetItem(script).AsString();
             Variable line = Utils.GetItem(script);
@@ -380,7 +380,7 @@ namespace SplitAndMerge
     // Apend a list of lines to a file
     class AppendLinesFunction : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             string filename = Utils.GetItem(script).AsString();
             string lines = Utils.GetLinesFromList(script);
@@ -393,7 +393,7 @@ namespace SplitAndMerge
     // Write a line to a file
     class WriteLineFunction : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             string filename = Utils.GetItem(script).AsString();
             Variable line = Utils.GetItem(script);
@@ -406,7 +406,7 @@ namespace SplitAndMerge
     // Write a list of lines to a file
     class WriteLinesFunction : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             //string filename = Utils.ResultToString(Utils.GetItem(script));
             string filename = Utils.GetItem(script).AsString();
@@ -420,7 +420,7 @@ namespace SplitAndMerge
     // Find a string in files
     class FindstrFunction : ParserFunction, IArrayFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             string search = Utils.GetItem(script).AsString();
             List<string> patterns = Utils.GetFunctionArgs(script);
@@ -456,7 +456,7 @@ namespace SplitAndMerge
     // Find files having a given pattern
     class FindfilesFunction : ParserFunction, IArrayFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             List<string> patterns = Utils.GetFunctionArgs(script);
             if (patterns.Count == 0)
@@ -484,7 +484,7 @@ namespace SplitAndMerge
     // Copy a file or a directiry
     class CopyFunction : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             string source = Utils.GetItem(script).AsString();
             script.MoveForwardIf(Constants.NEXT_ARG, Constants.SPACE);
@@ -527,7 +527,7 @@ namespace SplitAndMerge
     // Move a file or a directiry
     class MoveFunction : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             string source = Utils.GetItem(script).AsString();
             script.MoveForwardIf(Constants.NEXT_ARG, Constants.SPACE);
@@ -573,7 +573,7 @@ namespace SplitAndMerge
     // Make a directory
     class MkdirFunction : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             string dirname = Utils.GetItem(script).AsString();
             try
@@ -592,7 +592,7 @@ namespace SplitAndMerge
     // Delete a file or a directory
     class DeleteFunction : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             string pathname = Utils.GetItem(script).AsString();
 
@@ -625,7 +625,7 @@ namespace SplitAndMerge
     // Checks if a directory or a file exists
     class ExistsFunction : ParserFunction, INumericFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             string pathname = Utils.GetItem(script).AsString();
 
@@ -649,7 +649,7 @@ namespace SplitAndMerge
     // List files in a directory
     class DirFunction : ParserFunction, IArrayFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             string dirname = (!script.StillValid() || script.Current == Constants.END_STATEMENT) ?
               Directory.GetCurrentDirectory() :
@@ -751,7 +751,7 @@ namespace SplitAndMerge
         {
             m_millis = millis;
         }
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             List<Variable> args = script.GetFunctionArgs();
 
@@ -787,7 +787,7 @@ namespace SplitAndMerge
             m_mode = mode;
         }
 
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             List<Variable> args = script.GetFunctionArgs();
 
@@ -869,7 +869,7 @@ namespace SplitAndMerge
             return intermidiate;
         }
 
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             List<Variable> args = script.GetFunctionArgs();
             Utils.CheckArgs(args.Count, 1, m_name, true);
@@ -903,7 +903,7 @@ namespace SplitAndMerge
     {
         static string[] s_allowedMethods = { "GET", "POST", "PUT", "DELETE", "HEAD", "OPTIONS", "TRACE" };
 
-        protected override async Task<Variable> EvaluateAsync(ParsingScript script)
+        public override async Task<Variable> EvaluateAsync(ParsingScript script)
         {
             List<Variable> args = script.GetFunctionArgs();
             Utils.CheckArgs(args.Count, 2, m_name);
@@ -928,7 +928,7 @@ namespace SplitAndMerge
             return Variable.EmptyInstance;
         }
 
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             List<Variable> args = script.GetFunctionArgs();
             Utils.CheckArgs(args.Count, 2, m_name);
@@ -1096,7 +1096,7 @@ namespace SplitAndMerge
     {
         static char[] SEP = "\",:]}".ToCharArray();
 
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             List<Variable> args = script.GetFunctionArgs();
             Utils.CheckArgs(args.Count, 1, m_name);
@@ -1162,7 +1162,7 @@ namespace SplitAndMerge
 
     class IncludeFileSecure : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             List<Variable> args = script.GetFunctionArgs();
             Utils.CheckArgs(args.Count, 1, m_name, true);

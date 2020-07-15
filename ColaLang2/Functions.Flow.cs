@@ -8,7 +8,7 @@ namespace SplitAndMerge
 {
     class BreakStatement : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             return new Variable(Variable.VarType.BREAK);
         }
@@ -16,7 +16,7 @@ namespace SplitAndMerge
 
     class ContinueStatement : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             return new Variable(Variable.VarType.CONTINUE);
         }
@@ -24,7 +24,7 @@ namespace SplitAndMerge
 
     class ReturnStatement : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             script.MoveForwardIf(Constants.SPACE);
             if (!script.FromPrev(Constants.RETURN.Length).Contains(Constants.RETURN))
@@ -39,7 +39,7 @@ namespace SplitAndMerge
 
             return result;
         }
-        protected override async Task<Variable> EvaluateAsync(ParsingScript script)
+        public override async Task<Variable> EvaluateAsync(ParsingScript script)
         {
             script.MoveForwardIf(Constants.SPACE);
             if (!script.FromPrev(Constants.RETURN.Length).Contains(Constants.RETURN))
@@ -58,11 +58,11 @@ namespace SplitAndMerge
 
     class TryBlock : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             return Interpreter.Instance.ProcessTry(script);
         }
-        protected override async Task<Variable> EvaluateAsync(ParsingScript script)
+        public override async Task<Variable> EvaluateAsync(ParsingScript script)
         {
             return await Interpreter.Instance.ProcessTryAsync(script);
         }
@@ -70,7 +70,7 @@ namespace SplitAndMerge
 
     class ExitFunction : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             Environment.Exit(0);
             return Variable.EmptyInstance;
@@ -79,21 +79,21 @@ namespace SplitAndMerge
 
     class NullFunction : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             return Variable.EmptyInstance;
         }
     }
     class InfinityFunction : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             return new Variable(double.PositiveInfinity);
         }
     }
     class NegInfinityFunction : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             return new Variable(double.NegativeInfinity);
         }
@@ -101,7 +101,7 @@ namespace SplitAndMerge
 
     class IsNaNFunction : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             List<Variable> args = script.GetFunctionArgs();
             Utils.CheckArgs(args.Count, 1, m_name);
@@ -112,7 +112,7 @@ namespace SplitAndMerge
 
     class TypeOfFunction : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             List<Variable> args = script.GetFunctionArgs();
             Utils.CheckArgs(args.Count, 1, m_name);
@@ -138,7 +138,7 @@ namespace SplitAndMerge
 
     class IsFiniteFunction : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             List<Variable> args = script.GetFunctionArgs();
             Utils.CheckArgs(args.Count, 1, m_name);
@@ -166,7 +166,7 @@ namespace SplitAndMerge
             m_action = action;
         }
 
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             script.Forward(Constants.UNDEFINED.Length);
             var variable =  ParserFunction.GetVariable(m_argument, script);
@@ -182,7 +182,7 @@ namespace SplitAndMerge
 
     class ObjectPropsFunction : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             Variable obj = Utils.GetItem(script, true);
             string propName = Utils.GetItem(script, true).AsString();
@@ -199,7 +199,7 @@ namespace SplitAndMerge
 
     class ThrowFunction : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             // 1. Extract what to throw.
             Variable arg = Utils.GetItem(script);
@@ -210,7 +210,7 @@ namespace SplitAndMerge
             // 3. Throw it!
             throw new ArgumentException(result);
         }
-        protected override async Task<Variable> EvaluateAsync(ParsingScript script)
+        public override async Task<Variable> EvaluateAsync(ParsingScript script)
         {
             // 1. Extract what to throw.
             Variable arg = await Utils.GetItemAsync(script);
@@ -225,14 +225,14 @@ namespace SplitAndMerge
 
     class VarFunction : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             string varName = Utils.GetToken(script, Constants.TOKEN_SEPARATION);
             script.MoveForwardIf('=');
             AssignFunction assign = new AssignFunction();
             return assign.Assign(script, varName, true);
         }
-        protected override async Task<Variable> EvaluateAsync(ParsingScript script)
+        public override async Task<Variable> EvaluateAsync(ParsingScript script)
         {
             string varName = Utils.GetToken(script, Constants.TOKEN_SEPARATION);
             script.MoveForwardIf('=');
@@ -243,7 +243,7 @@ namespace SplitAndMerge
 
     class ShowFunction : ParserFunction, IStringFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             List<Variable> args = script.GetFunctionArgs();
             Utils.CheckArgs(args.Count, 1, m_name, true);
@@ -270,7 +270,7 @@ namespace SplitAndMerge
 
     class FunctionCreator : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             string funcName = Utils.GetToken(script, Constants.TOKEN_SEPARATION);
             funcName = Constants.ConvertName(funcName);
@@ -358,7 +358,7 @@ namespace SplitAndMerge
             s_allClasses[className] = obj;
         }
 
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             script.GetFunctionArgs();
 
@@ -533,7 +533,7 @@ namespace SplitAndMerge
 
     class NameExistsFunction : ParserFunction, INumericFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             string varName = Utils.GetToken(script, Constants.TOKEN_SEPARATION);
             varName = Constants.ConvertName(varName);
@@ -545,7 +545,7 @@ namespace SplitAndMerge
 
     class EnumFunction : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             List<string> properties = Utils.ExtractTokens(script);
 
@@ -631,7 +631,7 @@ namespace SplitAndMerge
 
     class NewObjectFunction : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             string className = Utils.GetToken(script, Constants.TOKEN_SEPARATION);
             className = Constants.ConvertName(className);
@@ -657,7 +657,7 @@ namespace SplitAndMerge
             return new Variable(instance);
         }
 
-        protected override async Task<Variable> EvaluateAsync(ParsingScript script)
+        public override async Task<Variable> EvaluateAsync(ParsingScript script)
         {
             string className = Utils.GetToken(script, Constants.TOKEN_SEPARATION);
             className = Constants.ConvertName(className);
@@ -686,7 +686,7 @@ namespace SplitAndMerge
 
     public class ClassCreator : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             string className = Utils.GetToken(script, Constants.TOKEN_SEPARATION);
             className = Constants.ConvertName(className);
@@ -730,7 +730,7 @@ namespace SplitAndMerge
 
     public class NamespaceFunction : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             string namespaceName = Utils.GetToken(script, Constants.NEXT_OR_END_ARRAY);
             //Utils.CheckNotEnd(script, m_name);
@@ -921,7 +921,7 @@ namespace SplitAndMerge
             ParserFunction.AddLocalVariables(m_stackLevel);
         }
 
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             List<Variable> args = Constants.FUNCT_WITH_SPACE.Contains(m_name) ?
                 // Special case of extracting args.
@@ -941,7 +941,7 @@ namespace SplitAndMerge
             Variable result = Run(args, script);
             return result;
         }
-        protected override async Task<Variable> EvaluateAsync(ParsingScript script)
+        public override async Task<Variable> EvaluateAsync(ParsingScript script)
         {
             List<Variable> args = Constants.FUNCT_WITH_SPACE.Contains(m_name) ?
                 // Special case of extracting args.
@@ -1129,11 +1129,11 @@ namespace SplitAndMerge
             }
         }
 
-        protected string m_body;
-        protected string[] m_args;
-        protected ParsingScript m_parentScript = null;
-        protected int m_parentOffset = 0;
-        protected StackLevel m_stackLevel;
+        public string m_body;
+        public string[] m_args;
+        public ParsingScript m_parentScript = null;
+        public int m_parentOffset = 0;
+        public StackLevel m_stackLevel;
 
         List<Variable> m_defaultArgs = new List<Variable>();
         Dictionary<int, int> m_defArgMap = new Dictionary<int, int>();
@@ -1144,7 +1144,7 @@ namespace SplitAndMerge
 
     class StringOrNumberFunction : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             // First check if the passed expression is a string between quotes.
             if (Item.Length > 1 &&
@@ -1164,7 +1164,7 @@ namespace SplitAndMerge
 
     class AddFunction : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             List<Variable> args = script.GetFunctionArgs();
             Utils.CheckArgs(args.Count, 2, m_name);
@@ -1182,7 +1182,7 @@ namespace SplitAndMerge
 
             return currentValue;
         }
-        protected override async Task<Variable> EvaluateAsync(ParsingScript script)
+        public override async Task<Variable> EvaluateAsync(ParsingScript script)
         {
             List<Variable> args = await script.GetFunctionArgsAsync();
             Utils.CheckArgs(args.Count, 2, m_name);
@@ -1203,7 +1203,7 @@ namespace SplitAndMerge
     }
     class RemoveFunction : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             // 1. Get the name of the variable.
             List<Variable> args = script.GetFunctionArgs();
@@ -1228,7 +1228,7 @@ namespace SplitAndMerge
     }
     class RemoveAtFunction : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             // 1. Get the name of the variable.
             string varName = Utils.GetToken(script, Constants.NEXT_OR_END_ARRAY);
@@ -1254,7 +1254,7 @@ namespace SplitAndMerge
 
     class ContainsFunction : ParserFunction, INumericFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             // 1. Get the name of the variable.
             string varName = Utils.GetToken(script, Constants.NEXT_OR_END_ARRAY);
@@ -1286,7 +1286,7 @@ namespace SplitAndMerge
 
     class FindIndexFunction : ParserFunction, INumericFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             List<Variable> args = script.GetFunctionArgs();
             Utils.CheckArgs(args.Count, 2, m_name);
@@ -1307,14 +1307,14 @@ namespace SplitAndMerge
         {
             m_value = init;
         }
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             return new Variable(m_value);
         }
     }
     class ToDoubleFunction : ParserFunction, INumericFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             List<Variable> args = script.GetFunctionArgs();
             Utils.CheckArgs(args.Count, 1, m_name, true);
@@ -1328,7 +1328,7 @@ namespace SplitAndMerge
 
     class ToIntFunction : ParserFunction, INumericFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             List<Variable> args = script.GetFunctionArgs();
             Utils.CheckArgs(args.Count, 1, m_name, true);
@@ -1340,7 +1340,7 @@ namespace SplitAndMerge
     }
     class ToBoolFunction : ParserFunction, INumericFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             List<Variable> args = script.GetFunctionArgs();
             Utils.CheckArgs(args.Count, 1, m_name, true);
@@ -1352,7 +1352,7 @@ namespace SplitAndMerge
     }
     class ToDecimalFunction : ParserFunction, INumericFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             List<Variable> args = script.GetFunctionArgs();
             Utils.CheckArgs(args.Count, 1, m_name, true);
@@ -1364,7 +1364,7 @@ namespace SplitAndMerge
     }
     class ToStringFunction : ParserFunction, IStringFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             List<Variable> args = script.GetFunctionArgs();
             Utils.CheckArgs(args.Count, 1, m_name);
@@ -1378,11 +1378,11 @@ namespace SplitAndMerge
     }
     class IdentityFunction : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             return script.Execute(Constants.END_ARG_ARRAY);
         }
-        protected override async Task<Variable> EvaluateAsync(ParsingScript script)
+        public override async Task<Variable> EvaluateAsync(ParsingScript script)
         {
             return await script.ExecuteAsync(Constants.END_ARG_ARRAY);
         }
@@ -1390,7 +1390,7 @@ namespace SplitAndMerge
 
     class ConstantsFunction : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             return new Variable(m_name);
         }
@@ -1398,12 +1398,12 @@ namespace SplitAndMerge
 
     class IfStatement : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             Variable result = Interpreter.Instance.ProcessIf(script);
             return result;
         }
-        protected override async Task<Variable> EvaluateAsync(ParsingScript script)
+        public override async Task<Variable> EvaluateAsync(ParsingScript script)
         {
             Variable result = await Interpreter.Instance.ProcessIfAsync(script);
             return result;
@@ -1412,11 +1412,11 @@ namespace SplitAndMerge
 
     class ForStatement : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             return Interpreter.Instance.ProcessFor(script);
         }
-        protected override async Task<Variable> EvaluateAsync(ParsingScript script)
+        public override async Task<Variable> EvaluateAsync(ParsingScript script)
         {
             return await Interpreter.Instance.ProcessForAsync(script);
         }
@@ -1424,11 +1424,11 @@ namespace SplitAndMerge
 
     class WhileStatement : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             return Interpreter.Instance.ProcessWhile(script);
         }
-        protected override async Task<Variable> EvaluateAsync(ParsingScript script)
+        public override async Task<Variable> EvaluateAsync(ParsingScript script)
         {
             return await Interpreter.Instance.ProcessWhileAsync(script);
         }
@@ -1436,11 +1436,11 @@ namespace SplitAndMerge
 
     class DoWhileStatement : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             return Interpreter.Instance.ProcessDoWhile(script);
         }
-        protected override async Task<Variable> EvaluateAsync(ParsingScript script)
+        public override async Task<Variable> EvaluateAsync(ParsingScript script)
         {
             return Interpreter.Instance.ProcessDoWhile(script);
         }
@@ -1448,11 +1448,11 @@ namespace SplitAndMerge
 
     class SwitchStatement : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             return Interpreter.Instance.ProcessSwitch(script);
         }
-        protected override async Task<Variable> EvaluateAsync(ParsingScript script)
+        public override async Task<Variable> EvaluateAsync(ParsingScript script)
         {
             return Interpreter.Instance.ProcessSwitch(script);
         }
@@ -1460,11 +1460,11 @@ namespace SplitAndMerge
 
     class CaseStatement : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             return Interpreter.Instance.ProcessCase(script, Name);
         }
-        protected override async Task<Variable> EvaluateAsync(ParsingScript script)
+        public override async Task<Variable> EvaluateAsync(ParsingScript script)
         {
             return Interpreter.Instance.ProcessCase(script, Name);
         }
@@ -1472,7 +1472,7 @@ namespace SplitAndMerge
 
     class IncludeFile : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             List<Variable> args = script.GetFunctionArgs();
             Utils.CheckArgs(args.Count, 1, m_name, true);
@@ -1500,7 +1500,7 @@ namespace SplitAndMerge
             return false;
         }
 
-        protected override async Task<Variable> EvaluateAsync(ParsingScript script)
+        public override async Task<Variable> EvaluateAsync(ParsingScript script)
         {
             List<Variable> args = await script.GetFunctionArgsAsync();
             Utils.CheckArgs(args.Count, 1, m_name, true);
@@ -1593,7 +1593,7 @@ namespace SplitAndMerge
             m_value = value;
         }
 
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             // First check if this element is part of an array:
             if (script.TryPrev() == Constants.START_ARRAY)
@@ -1648,7 +1648,7 @@ namespace SplitAndMerge
             // Otherwise just return the stored value.
             return m_value;
         }
-        protected override async Task<Variable> EvaluateAsync(ParsingScript script)
+        public override async Task<Variable> EvaluateAsync(ParsingScript script)
         {
             // First check if this element is part of an array:
             if (script.TryPrev() == Constants.START_ARRAY)
@@ -1764,7 +1764,7 @@ namespace SplitAndMerge
     }
     class IncrementDecrementFunction : ActionFunction, INumericFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             bool prefix = string.IsNullOrWhiteSpace(m_name);
             if (prefix)
@@ -1824,7 +1824,7 @@ namespace SplitAndMerge
 
     class OperatorAssignFunction : ActionFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             // Value to be added to the variable:
             Variable right = Utils.GetItem(script);
@@ -1924,7 +1924,7 @@ namespace SplitAndMerge
 
     class AssignFunction : ActionFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             return Assign(script, m_name);
         }
@@ -1978,7 +1978,7 @@ namespace SplitAndMerge
             return array;
         }
 
-        protected override async Task<Variable> EvaluateAsync(ParsingScript script)
+        public override async Task<Variable> EvaluateAsync(ParsingScript script)
         {
             return await AssignAsync(script, m_name);
         }
@@ -2168,7 +2168,7 @@ namespace SplitAndMerge
 
     class DeepCopyFunction : ActionFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             Variable varValue = Utils.GetItem(script);
             return varValue.DeepClone();
@@ -2177,7 +2177,7 @@ namespace SplitAndMerge
 
     class TokenizeLinesFunction : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             List<Variable> args = script.GetFunctionArgs();
             Utils.CheckArgs(args.Count, 2, m_name);
@@ -2221,7 +2221,7 @@ namespace SplitAndMerge
 
     class AddVariablesToHashFunction : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             List<Variable> args = script.GetFunctionArgs();
             Utils.CheckArgs(args.Count, 3, m_name);
@@ -2263,7 +2263,7 @@ namespace SplitAndMerge
     }
     class AddVariableToHashFunction : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             List<Variable> args = script.GetFunctionArgs();
             Utils.CheckArgs(args.Count, 3, m_name);
@@ -2295,7 +2295,7 @@ namespace SplitAndMerge
     }
     class TokenCounterFunction : ParserFunction, IArrayFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             List<Variable> args = script.GetFunctionArgs();
             Utils.CheckArgs(args.Count, 2, m_name);
@@ -2345,7 +2345,7 @@ namespace SplitAndMerge
 
     class TypeFunction : ParserFunction, IStringFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             List<Variable> args = script.GetFunctionArgs();
             Utils.CheckArgs(args.Count, 1, m_name);
@@ -2371,7 +2371,7 @@ namespace SplitAndMerge
 
     class SizeFunction : ParserFunction, INumericFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             // 1. Get the name of the variable.
             string varName = Utils.GetToken(script, Constants.END_ARG_ARRAY);
@@ -2406,7 +2406,7 @@ namespace SplitAndMerge
 
     class DefineLocalFunction : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             List<Variable> args = script.GetFunctionArgs();
             Utils.CheckArgs(args.Count, 1, m_name);
@@ -2441,7 +2441,7 @@ namespace SplitAndMerge
 
     class GetPropertiesFunction : ParserFunction, IArrayFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             List<Variable> args = script.GetFunctionArgs();
             Utils.CheckArgs(args.Count, 1, m_name, true);
@@ -2454,7 +2454,7 @@ namespace SplitAndMerge
 
     class GetPropertyFunction : ParserFunction, IArrayFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             List<Variable> args = script.GetFunctionArgs();
             Utils.CheckArgs(args.Count, 2, m_name, true);
@@ -2467,7 +2467,7 @@ namespace SplitAndMerge
 
             return new Variable(propValue);
         }
-        protected override async Task<Variable> EvaluateAsync(ParsingScript script)
+        public override async Task<Variable> EvaluateAsync(ParsingScript script)
         {
             List<Variable> args = await script.GetFunctionArgsAsync();
             Utils.CheckArgs(args.Count, 2, m_name, true);
@@ -2508,7 +2508,7 @@ namespace SplitAndMerge
 
     class SetPropertyFunction : ParserFunction, IArrayFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             List<Variable> args = script.GetFunctionArgs();
             Utils.CheckArgs(args.Count, 3, m_name, true);
@@ -2523,7 +2523,7 @@ namespace SplitAndMerge
                                                     new GetVarFunction(baseValue), script);
             return result;
         }
-        protected override async Task<Variable> EvaluateAsync(ParsingScript script)
+        public override async Task<Variable> EvaluateAsync(ParsingScript script)
         {
             List<Variable> args = await script.GetFunctionArgsAsync();
             Utils.CheckArgs(args.Count, 3, m_name, true);
@@ -2573,7 +2573,7 @@ namespace SplitAndMerge
     {
         public static bool Canceled { get; set; }
 
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             List<Variable> args = script.GetFunctionArgs();
             Utils.CheckArgs(args.Count, 0, m_name, true);
@@ -2596,7 +2596,7 @@ namespace SplitAndMerge
         {
             m_startTimer = startTimer;
         }
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             List<Variable> args = script.GetFunctionArgs();
 
@@ -2653,7 +2653,7 @@ namespace SplitAndMerge
         static Dictionary<string, Variable> m_singletons =
            new Dictionary<string, Variable>();
 
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             List<Variable> args = script.GetFunctionArgs();
             Utils.CheckArgs(args.Count, 1, m_name);
@@ -2679,7 +2679,7 @@ namespace SplitAndMerge
 
     class GetColumnFunction : ParserFunction, IArrayFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             List<Variable> args = script.GetFunctionArgs();
             Utils.CheckArgs(args.Count, 2, m_name);
@@ -2708,7 +2708,7 @@ namespace SplitAndMerge
 
     class GetAllKeysFunction : ParserFunction, IArrayFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             Variable varName = Utils.GetItem(script);
             Utils.CheckNotNull(varName, m_name, script);
@@ -2721,7 +2721,7 @@ namespace SplitAndMerge
 
     class CheckLoaderMainFunction : ParserFunction, INumericFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             bool isMain = !string.IsNullOrWhiteSpace(script.MainFilename) &&
                            script.MainFilename == script.Filename;
@@ -2732,7 +2732,7 @@ namespace SplitAndMerge
 
     class ResetVariablesFunction : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             ParserFunction.CleanUpVariables();
             return Variable.EmptyInstance;

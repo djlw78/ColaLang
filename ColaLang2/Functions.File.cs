@@ -10,7 +10,7 @@ namespace SplitAndMerge
 {
     class FileCreate : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             List<Variable> args = script.GetFunctionArgs();
             Utils.CheckArgs(args.Count, 1, m_name);
@@ -24,7 +24,7 @@ namespace SplitAndMerge
     }
     class FileWrite : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             List<Variable> args = script.GetFunctionArgs();
             Utils.CheckArgs(args.Count, 2, m_name);
@@ -45,7 +45,7 @@ namespace SplitAndMerge
     }
     class FileReadToEnd : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             List<Variable> args = script.GetFunctionArgs();
             Utils.CheckArgs(args.Count, 1, m_name);
@@ -65,7 +65,7 @@ namespace SplitAndMerge
     }
     class FileDelete : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             List<Variable> args = script.GetFunctionArgs();
             Utils.CheckArgs(args.Count, 1, m_name);
@@ -79,7 +79,7 @@ namespace SplitAndMerge
     }
     class FileCopy : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             List<Variable> args = script.GetFunctionArgs();
             Utils.CheckArgs(args.Count, 2, m_name);
@@ -94,7 +94,7 @@ namespace SplitAndMerge
     }
     class FileExists : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             List<Variable> args = script.GetFunctionArgs();
             Utils.CheckArgs(args.Count, 1, m_name);
@@ -106,7 +106,7 @@ namespace SplitAndMerge
     }
     class FileWriteAllBytes : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             List<Variable> args = script.GetFunctionArgs();
             Utils.CheckArgs(args.Count, 2, m_name);
@@ -131,7 +131,7 @@ namespace SplitAndMerge
     }
     class FileReadAllBytes : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             List<Variable> args = script.GetFunctionArgs();
             Utils.CheckArgs(args.Count, 1, m_name);
@@ -156,7 +156,7 @@ namespace SplitAndMerge
 
     class DirCreate : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             List<Variable> args = script.GetFunctionArgs();
             Utils.CheckArgs(args.Count, 1, m_name);
@@ -170,7 +170,7 @@ namespace SplitAndMerge
     }
     class DirDelete : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             List<Variable> args = script.GetFunctionArgs();
             Utils.CheckArgs(args.Count, 1, m_name);
@@ -184,7 +184,7 @@ namespace SplitAndMerge
     }
     class DirExists : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             List<Variable> args = script.GetFunctionArgs();
             Utils.CheckArgs(args.Count, 1, m_name);
@@ -196,7 +196,7 @@ namespace SplitAndMerge
     }
     class DirGetDirs : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             List<Variable> args = script.GetFunctionArgs();
             Utils.CheckArgs(args.Count, 1, m_name);
@@ -216,7 +216,7 @@ namespace SplitAndMerge
     }
     class DirGetFiles : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             List<Variable> args = script.GetFunctionArgs();
             Utils.CheckArgs(args.Count, 1, m_name);
@@ -236,7 +236,7 @@ namespace SplitAndMerge
     }
     class DirGetParent : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             List<Variable> args = script.GetFunctionArgs();
             Utils.CheckArgs(args.Count, 1, m_name);
@@ -248,7 +248,7 @@ namespace SplitAndMerge
     }
     class ZipCreateFromDir : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             List<Variable> args = script.GetFunctionArgs();
             Utils.CheckArgs(args.Count, 2, m_name);
@@ -263,7 +263,7 @@ namespace SplitAndMerge
     }
     class ZipExtractToDir : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             List<Variable> args = script.GetFunctionArgs();
             Utils.CheckArgs(args.Count, 2, m_name);

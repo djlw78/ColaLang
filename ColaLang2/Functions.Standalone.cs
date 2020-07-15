@@ -10,7 +10,7 @@ namespace SplitAndMerge
 #if UNITY_EDITOR == false && UNITY_STANDALONE == false
     class WriteToConsole : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             List<Variable> args = script.GetFunctionArgs();
 
@@ -27,7 +27,7 @@ namespace SplitAndMerge
 #if __ANDROID__ == false && __IOS__ == false
     class TranslateFunction : ParserFunction, IStringFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             List<Variable> args = script.GetFunctionArgs();
             Utils.CheckArgs(args.Count, 2, m_name, true);
@@ -55,7 +55,7 @@ namespace SplitAndMerge
             m_isNumber = isNumber;
         }
 
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             script.Forward(); // Skip opening parenthesis.
             string line = Console.ReadLine();
@@ -79,7 +79,7 @@ namespace SplitAndMerge
 
     class ClearConsole : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             Console.Clear();
             return Variable.EmptyInstance;
@@ -100,7 +100,7 @@ namespace SplitAndMerge
             m_changeColor = true;
         }
 
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             List<Variable> args = script.GetFunctionArgs();
 

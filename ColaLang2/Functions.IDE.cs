@@ -15,7 +15,7 @@ namespace SplitAndMerge
         public static System.IO.StreamWriter streamWriter;
         public static bool initialized = false;
 
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             List<Variable> args = script.GetFunctionArgs();
             Utils.CheckArgs(args.Count, 1, m_name);
@@ -35,7 +35,7 @@ namespace SplitAndMerge
 
     class IDELog : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             if (!IDEConnectDebugger.initialized)
                 return Variable.EmptyInstance;
@@ -56,7 +56,7 @@ namespace SplitAndMerge
 
     class IDEGetInput : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             if (!IDEConnectDebugger.initialized)
                 return Variable.EmptyInstance;
@@ -77,7 +77,7 @@ namespace SplitAndMerge
 
     class IDEDisconnect : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             if (!IDEConnectDebugger.initialized)
                 return Variable.EmptyInstance;
@@ -97,21 +97,21 @@ namespace SplitAndMerge
 
     class IDELogInfo : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             return new Variable("Info");
         }
     }
     class IDELogError : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             return new Variable("Error");
         }
     }
     class IDELogWarning : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             return new Variable("Warning");
         }

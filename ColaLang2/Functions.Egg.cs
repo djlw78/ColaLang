@@ -9,7 +9,7 @@ namespace SplitAndMerge
 {
     class ColaCredits : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             Console.WriteLine("Cola Credits");
             Console.WriteLine("ColaLang developer is ProfessorDJ");
@@ -19,7 +19,7 @@ namespace SplitAndMerge
     }
     class EggBeepFunction : ParserFunction
     {
-        protected override Variable Evaluate(ParsingScript script)
+        public override Variable Evaluate(ParsingScript script)
         {
             List<Variable> args = script.GetFunctionArgs();
             Utils.CheckArgs(args.Count, 1, m_name);

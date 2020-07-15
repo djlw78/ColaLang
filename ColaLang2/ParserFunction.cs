@@ -867,13 +867,13 @@ namespace SplitAndMerge
             return await m_impl.EvaluateAsync(script);
         }
 
-        protected virtual Variable Evaluate(ParsingScript script)
+        public virtual Variable Evaluate(ParsingScript script)
         {
             // The real implementation will be in the derived classes.
             return new Variable();
         }
 
-        protected virtual Task<Variable> EvaluateAsync(ParsingScript script)
+        public virtual Task<Variable> EvaluateAsync(ParsingScript script)
         {
             // If not overriden, the non-sync version will be called.
             return Task.FromResult( Evaluate(script) );
@@ -903,17 +903,17 @@ namespace SplitAndMerge
             CompiledClass.Init();
         }
 
-        protected string m_name;
+        public string m_name;
         public string Name
         {
             get { return m_name; }
             set { m_name = value; }
         }
 
-        protected bool m_isGlobal = true;
+        public bool m_isGlobal = true;
         public bool isGlobal { get { return m_isGlobal; } set { m_isGlobal = value; } }
 
-        protected bool m_isNative = true;
+        public bool m_isNative = true;
         public bool isNative { get { return m_isNative; } set { m_isNative = value; } }
 
         ParserFunction m_impl;
@@ -979,7 +979,7 @@ namespace SplitAndMerge
 
     public abstract class ActionFunction : ParserFunction
     {
-        protected string m_action;
+        public string m_action;
         public string Action { set { m_action = value; } }
     }
 }
