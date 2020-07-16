@@ -168,6 +168,10 @@
     <Compile Include="ParserFunction.cs" />
     <Compile Include="ParsingScript.cs" />
     <Compile Include="PluginFramework\IPlugin.cs" />
+    <Compile Include="PluginFramework\IPluginLoader.cs" />
+    <Compile Include="PluginFramework\Plugin.cs" />
+    <Compile Include="PluginFramework\PluginData.cs" />
+    <Compile Include="PluginFramework\PluginLoader.cs" />
     <Compile Include="Precompiler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Statics.cs" />
