@@ -28,6 +28,8 @@ namespace ColaLang
         public const string FOR_EACH = ":";
         public const string FOR_IN = "in";
         public const string FOR_OF = "of";
+        public const string ASTHIS = "as"; //TODO add this
+       
         public const string INFINITY = "Infinity";
         public const string NEG_INFINITY = "-Infinity";
         public const string ISFINITE = "IsFinite";
