@@ -60,7 +60,8 @@ namespace ColaLang
         public const string CATCH = "catch";
         public const string CANCEL = "cancel_operation";
         public const string COMMENT = "//";
-        public const string COMPILED_FUNCTION = "ililililiiiillllilillilil";
+        public const string COMPILED_FUNCTION = "yfunc";
+        public const string ArrayFunc = "Array";
         public const string CONTINUE = "continue";
         public const string DEFAULT = "default";
         public const string DO = "do";
@@ -272,8 +273,7 @@ namespace ColaLang
         public const string COLACREDITS   = "Cola.Credits";
         public const string COLAEGGBEEP   = "Cola.EasterEgg.Beep";
         public const string COLASNGPYR    = "Cola.PlaySound";
-        public const string LOOPTEST = "LoopTest";
-        public const string LOOPRED = "LoopRed";
+        public const string LOOP = "loop";
         public const string Rnd = "Rnd";
         #endregion
         #region ConsoleKeyClass

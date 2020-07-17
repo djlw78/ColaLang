@@ -15,6 +15,26 @@ using System.Windows.Interop;
 
 namespace ColaLang
 {
+
+    class ArrayExt : ParserFunction
+    {
+        public override Variable Evaluate(ParsingScript script)
+        {
+            List<Variable> args = script.GetFunctionArgs();
+            Utils.CheckArgs(args.Count, 1, m_name);
+
+            var amount = Utils.GetSafeInt(args, 0);
+
+            List<double> arr = new List<double>();
+
+            for (int i = 0; i < amount; i++)
+            {
+                arr.Add(i);
+            }
+
+            return new Variable(arr);
+        }
+    }
     #region printing
     // Prints passed list of argumentsand
     class PrintfFunction : ParserFunction
@@ -1170,15 +1190,15 @@ namespace ColaLang
         }
     }
 
-    class ColaLoopRedFunction : ParserFunction
+    class SignalLooper : ParserFunction
     {
         public override Variable Evaluate(ParsingScript script)
         {
             List<Variable> args = script.GetFunctionArgs();
             Utils.CheckArgs(args.Count, 2, m_name);
             //RedLoop("0", 1);
-            var text = Utils.GetSafeString(args, 0);
-            var times = Utils.GetSafeInt(args, 1);
+            var times = Utils.GetSafeInt(args, 0);
+            var text = Utils.GetSafeString(args, 1);
 
             for (int i = 0; i < times; i++)
             {

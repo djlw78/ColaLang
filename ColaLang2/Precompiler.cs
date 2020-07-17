@@ -214,7 +214,7 @@ namespace ColaLang
               CompileBase(CompilerResults compile, string functionName)
         {
             Module module = compile.CompiledAssembly.GetModules()[0];
-            Type mt = module.GetType("SplitAndMerge.Precompiler");
+            Type mt = module.GetType("ColaLang.Precompiler");
 
             List<ParameterExpression> paramTypes = new List<ParameterExpression>();
             paramTypes.Add(Expression.Parameter(typeof(List<string>), STRING_VAR_ARG));
@@ -383,7 +383,7 @@ namespace ColaLang
 
                 m_converted.AppendLine(ns);
             }
-            m_converted.AppendLine("namespace SplitAndMerge {\n" +
+            m_converted.AppendLine("namespace ColaLang {\n" +
                                    "  public partial class Precompiler {");
 
             for (int i = 0; i < s_definitions.Count; i++)

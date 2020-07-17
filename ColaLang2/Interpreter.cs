@@ -130,6 +130,7 @@ namespace ColaLang
             ParserFunction.RegisterFunction(Constants.TYPE_OF, new TypeOfFunction());
             ParserFunction.RegisterFunction(Constants.TRUE, new BoolFunction(true));
             ParserFunction.RegisterFunction(Constants.FALSE, new BoolFunction(false));
+            ParserFunction.RegisterFunction(Constants.ArrayFunc, new ArrayExt());
 
             //Cola new shit
           //  ParserFunction.RegisterFunction(Constants.PUTS, new _Puts());
@@ -261,8 +262,7 @@ namespace ColaLang
             ParserFunction.RegisterFunction(Constants.COLAFGCOLOR, new ColaConsoleFGFunction());
             ParserFunction.RegisterFunction(Constants.COLABGCOLOR, new ColaConsoleBGFunction());
             ParserFunction.RegisterFunction(Constants.COLAGETKEY, new ColaGetKeyFunction());
-            ParserFunction.RegisterFunction(Constants.LOOPTEST, new LoopFunction());
-            ParserFunction.RegisterFunction(Constants.LOOPRED, new ColaLoopRedFunction());
+            ParserFunction.RegisterFunction(Constants.LOOP, new SignalLooper());
             ParserFunction.RegisterFunction(Constants.Rnd, new ColaRandomNext());
             ParserFunction.RegisterFunction(Constants.COLACURSORVISIBLE, new ColaCursorVisible());
             ParserFunction.RegisterFunction(Constants.COLACREDITS, new ColaCredits());
